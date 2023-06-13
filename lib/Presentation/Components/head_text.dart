@@ -3,10 +3,12 @@ import 'package:devhabit/Presentation/Components/export_components.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class BlackHeadtext extends StatelessWidget {
+class HeadText extends StatelessWidget {
   final double fontSizeFactor;
   final String text;
-  const BlackHeadtext({
+  final Color color;
+  const HeadText({
+    required this.color,
     required this.text,
     required this.fontSizeFactor,
     super.key,
@@ -22,7 +24,7 @@ class BlackHeadtext extends StatelessWidget {
       child: Text(
         text,
         style: GoogleFonts.chivo(
-          color: blackColor,
+          color: color,
           height: 0,
           fontWeight: FontWeight.bold,
           fontSize: getScreenWidth(context) * fontSizeFactor,
