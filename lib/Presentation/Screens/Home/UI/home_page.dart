@@ -8,6 +8,13 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     double screenWidth = getScreenWidth(context);
     double screenHeight = getScreenheight(context);
-    return Scaffold();
+    return const Scaffold(
+      backgroundColor: whiteColor,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(),
+        ),
+      ),
+    );
   }
 }

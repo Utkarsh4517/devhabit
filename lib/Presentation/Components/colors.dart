@@ -7,3 +7,5 @@ const lightBlue = Color(0xffBDE0FE);
 const blue = Color(0xffA2D2FF);
 const whiteColor = Colors.white;
 const blackColor = Colors.black;
+
+const greyColor = Color(0xffA2A3A2);
