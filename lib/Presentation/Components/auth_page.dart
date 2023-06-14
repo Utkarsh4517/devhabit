@@ -1,3 +1,4 @@
+import 'package:devhabit/Presentation/Components/navrail.dart';
 import 'package:devhabit/Presentation/Screens/Home/UI/home_page.dart';
 import 'package:devhabit/Presentation/Screens/auth/UI/login_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -16,7 +17,7 @@ class AuthPage extends StatelessWidget {
         builder: (context, snapshot) {
           // if the user is logged in
           if (snapshot.hasData) {
-            return const HomePage(); // nav page in future
+            return const NavRail(); // nav page in future
           } else {
             return const LogInPage();
           }
