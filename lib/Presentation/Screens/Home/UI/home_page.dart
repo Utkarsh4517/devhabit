@@ -45,18 +45,35 @@ class HomePage extends StatelessWidget {
                   ),
                 ],
               ),
+
+              // progress container
               Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
                   color: blackColor,
                 ),
                 margin: EdgeInsets.symmetric(horizontal: getScreenWidth(context) * 0.05),
-                child: const Column(
+                child: Column(
                   children: [
-                    HeadText(color: whiteColor, text: '13 June, Tue', fontSizeFactor: 0.02)
+                    SizedBox(height: screenHeight * 0.02),
+                    const HeadText(color: greyColor, text: '13 June, Tue', fontSizeFactor: 0.03),
+                    const HeadText(color: whiteColor, text: "Today's progress", fontSizeFactor: 0.06),
+                    SizedBox(height: screenHeight * 0.1),
+                    const HeadText(color: greyColor, text: "10/12 tasks", fontSizeFactor: 0.03),
+                    const HeadText(color: whiteColor, text: '83%', fontSizeFactor: 0.25),
+                    SizedBox(height: screenHeight * 0.07),
+
                   ],
                 ),
-              )
+              ),
+              SizedBox(height: screenHeight * 0.03),
+
+              // ongoing tasks
+              const HeadText(color: blackColor, text: 'Ongoing', fontSizeFactor: 0.09)
+                // ongoing tasks listview
+              
+              // temp sizedbox
+              
 
             ],
           ),
