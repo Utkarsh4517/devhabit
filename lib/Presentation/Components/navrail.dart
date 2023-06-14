@@ -1,3 +1,4 @@
+import 'package:devhabit/Presentation/Components/export_components.dart';
 import 'package:devhabit/Presentation/Screens/Home/UI/home_page.dart';
 import 'package:devhabit/Presentation/Screens/Learnings/UI/learning_page.dart';
 import 'package:devhabit/Presentation/Screens/Notes/UI/notes_page.dart';
@@ -19,8 +20,6 @@ class _NavRailState extends State<NavRail> {
   bool showTrailing = false;
   double groupAlignment = -1.0;
 
-
-
   final PageStorageBucket bucket = PageStorageBucket();
   @override
   Widget build(BuildContext context) {
@@ -35,21 +34,77 @@ class _NavRailState extends State<NavRail> {
                 _selectedIndex = index;
               });
             },
-            destinations: const <NavigationRailDestination>[
+            destinations: <NavigationRailDestination>[
               NavigationRailDestination(
-                icon: Icon(FontAwesomeIcons.house),
+                icon: Container(
+                  width: getScreenWidth(context) * 0.07,
+                  height: getScreenWidth(context) * 0.07,
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: pink,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          spreadRadius: 2,
+                          blurRadius: 6,
+                          offset: const Offset(0, 3),
+                        )
+                      ]),
+                ),
                 label: Text('Home'),
               ),
               NavigationRailDestination(
-                icon: Icon(FontAwesomeIcons.noteSticky),
+                icon: Container(
+                  width: getScreenWidth(context) * 0.07,
+                  height: getScreenWidth(context) * 0.07,
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: pink,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          spreadRadius: 2,
+                          blurRadius: 6,
+                          offset: const Offset(0, 3),
+                        )
+                      ]),
+                ),
                 label: Text('Notes'),
               ),
               NavigationRailDestination(
-                icon: Icon(FontAwesomeIcons.book),
+                icon: Container(
+                  width: getScreenWidth(context) * 0.07,
+                  height: getScreenWidth(context) * 0.07,
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: pink,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          spreadRadius: 2,
+                          blurRadius: 6,
+                          offset: const Offset(0, 3),
+                        )
+                      ]),
+                ),
                 label: Text('Learning'),
               ),
               NavigationRailDestination(
-                icon: Icon(FontAwesomeIcons.stackExchange),
+                icon: Container(
+                  width: getScreenWidth(context) * 0.07,
+                  height: getScreenWidth(context) * 0.07,
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: pink,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          spreadRadius: 2,
+                          blurRadius: 6,
+                          offset: const Offset(0, 3),
+                        )
+                      ]),
+                ),
                 label: Text('Stats'),
               ),
             ],
