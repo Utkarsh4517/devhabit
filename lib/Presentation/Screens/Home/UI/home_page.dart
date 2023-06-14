@@ -1,6 +1,7 @@
 import 'package:devhabit/Presentation/Components/head_text.dart';
 import 'package:devhabit/Presentation/Components/export_components.dart';
 import 'package:devhabit/Presentation/Screens/Home/Widgets/top_icon.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -27,8 +28,14 @@ class HomePage extends StatelessWidget {
                   const Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                     HeadText(color: blackColor, text: 'Good', fontSizeFactor: 0.08),
-                     HeadText(color: greyColor, text: 'morning', fontSizeFactor: 0.08),
+                      HeadText(
+                          color: blackColor,
+                          text: 'Good',
+                          fontSizeFactor: 0.08),
+                      HeadText(
+                          color: greyColor,
+                          text: 'morning',
+                          fontSizeFactor: 0.08),
                     ],
                   ),
 
@@ -36,10 +43,17 @@ class HomePage extends StatelessWidget {
                   Container(
                     margin:
                         EdgeInsets.only(right: getScreenWidth(context) * 0.02),
-                    child: const Row(
+                    child: Row(
                       children: [
-                        HomePageTopIcon(icon: Icons.calendar_today_rounded),
-                        HomePageTopIcon(icon: Icons.notifications_active)
+                        const HomePageTopIcon(
+                            icon: Icons.calendar_today_rounded),
+                        const HomePageTopIcon(icon: Icons.notifications_active),
+                        GestureDetector(
+                          onTap: () => FirebaseAuth.instance.signOut(),
+                          child: const HomePageTopIcon(
+                            icon: Icons.logout,
+                          ),
+                        )
                       ],
                     ),
                   ),
@@ -52,29 +66,38 @@ class HomePage extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
                   color: blackColor,
                 ),
-                margin: EdgeInsets.symmetric(horizontal: getScreenWidth(context) * 0.05),
+                margin: EdgeInsets.symmetric(
+                    horizontal: getScreenWidth(context) * 0.05),
                 child: Column(
                   children: [
                     SizedBox(height: screenHeight * 0.02),
-                    const HeadText(color: greyColor, text: '13 June, Tue', fontSizeFactor: 0.03),
-                    const HeadText(color: whiteColor, text: "Today's progress", fontSizeFactor: 0.06),
+                    const HeadText(
+                        color: greyColor,
+                        text: '13 June, Tue',
+                        fontSizeFactor: 0.03),
+                    const HeadText(
+                        color: whiteColor,
+                        text: "Today's progress",
+                        fontSizeFactor: 0.06),
                     SizedBox(height: screenHeight * 0.1),
-                    const HeadText(color: greyColor, text: "10/12 tasks", fontSizeFactor: 0.03),
-                    const HeadText(color: whiteColor, text: '83%', fontSizeFactor: 0.25),
+                    const HeadText(
+                        color: greyColor,
+                        text: "10/12 tasks",
+                        fontSizeFactor: 0.03),
+                    const HeadText(
+                        color: whiteColor, text: '83%', fontSizeFactor: 0.25),
                     SizedBox(height: screenHeight * 0.07),
-
                   ],
                 ),
               ),
               SizedBox(height: screenHeight * 0.03),
 
               // ongoing tasks
-              const HeadText(color: blackColor, text: 'Ongoing', fontSizeFactor: 0.09)
-                // ongoing tasks listview
-              
-              // temp sizedbox
-              
+              const HeadText(
+                  color: blackColor, text: 'Ongoing', fontSizeFactor: 0.09)
+              // ongoing tasks listview
 
+              // temp sizedbox
             ],
           ),
         ),

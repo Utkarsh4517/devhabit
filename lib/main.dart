@@ -1,4 +1,4 @@
-import 'package:devhabit/Presentation/Screens/Home/UI/home_page.dart';
+import 'package:devhabit/Presentation/Components/auth_page.dart';
 import 'package:devhabit/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomePage(),
+      home: AuthPage(),
     );
   }
 }
