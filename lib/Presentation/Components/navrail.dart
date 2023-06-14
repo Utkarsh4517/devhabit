@@ -4,7 +4,7 @@ import 'package:devhabit/Presentation/Screens/Learnings/UI/learning_page.dart';
 import 'package:devhabit/Presentation/Screens/Notes/UI/notes_page.dart';
 import 'package:devhabit/Presentation/Screens/Stats/UI/stats_page.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 
 class NavRail extends StatefulWidget {
   const NavRail({super.key});
@@ -41,7 +41,7 @@ class _NavRailState extends State<NavRail> {
                   height: getScreenWidth(context) * 0.1,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      color: pink,
+                      color: whiteColor,
                       boxShadow: [
                         BoxShadow(
                           color: Colors.grey.withOpacity(0.5),
@@ -50,8 +50,9 @@ class _NavRailState extends State<NavRail> {
                           offset: const Offset(0, 2),
                         )
                       ]),
+                      child: const Icon(FeatherIcons.home),
                 ),
-                label: Text('Home'),
+                label: const Text('Home'),
               ),
               NavigationRailDestination(
                 icon: Container(
@@ -59,7 +60,7 @@ class _NavRailState extends State<NavRail> {
                   height: getScreenWidth(context) * 0.1,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      color: pink,
+                      color: whiteColor,
                       boxShadow: [
                         BoxShadow(
                           color: Colors.grey.withOpacity(0.5),
@@ -68,8 +69,9 @@ class _NavRailState extends State<NavRail> {
                           offset: const Offset(0, 2),
                         )
                       ]),
+                      child: const Icon(FeatherIcons.book),
                 ),
-                label: Text('Notes'),
+                label: const Text('Notes'),
               ),
               NavigationRailDestination(
                 icon: Container(
@@ -77,7 +79,7 @@ class _NavRailState extends State<NavRail> {
                   height: getScreenWidth(context) * 0.1,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      color: pink,
+                      color: whiteColor,
                       boxShadow: [
                         BoxShadow(
                           color: Colors.grey.withOpacity(0.5),
@@ -86,8 +88,9 @@ class _NavRailState extends State<NavRail> {
                           offset: const Offset(0, 2),
                         )
                       ]),
+                      child: const Icon(FeatherIcons.grid),
                 ),
-                label: Text('Learning'),
+                label: const Text('Learning'),
               ),
               NavigationRailDestination(
                 icon: Container(
@@ -95,7 +98,7 @@ class _NavRailState extends State<NavRail> {
                   height: getScreenWidth(context) * 0.1,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      color: pink,
+                      color: whiteColor,
                       boxShadow: [
                         BoxShadow(
                           color: Colors.grey.withOpacity(0.5),
@@ -104,8 +107,9 @@ class _NavRailState extends State<NavRail> {
                           offset: const Offset(0, 2),
                         )
                       ]),
+                      child: const Icon(FeatherIcons.pieChart),
                 ),
-                label: Text('Stats'),
+                label: const Text('Stats'),
               ),
             ],
           ),
