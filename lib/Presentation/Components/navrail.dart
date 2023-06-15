@@ -29,6 +29,16 @@ class _NavRailState extends State<NavRail> {
           NavigationRail(
             selectedIndex: _selectedIndex,
             groupAlignment: groupAlignment,
+            // settings icon.
+            trailing: Column(
+              children: [
+                SizedBox(height: getScreenheight(context) * 0.54),
+                IconButton(
+                  onPressed: () {},
+                  icon: const Icon(FeatherIcons.settings),
+                ),
+              ],
+            ),
             onDestinationSelected: (int index) {
               setState(() {
                 _selectedIndex = index;
@@ -50,7 +60,7 @@ class _NavRailState extends State<NavRail> {
                           offset: const Offset(0, 2),
                         )
                       ]),
-                      child: const Icon(FeatherIcons.home),
+                  child: const Icon(FeatherIcons.home),
                 ),
                 label: const Text('Home'),
               ),
@@ -69,7 +79,7 @@ class _NavRailState extends State<NavRail> {
                           offset: const Offset(0, 2),
                         )
                       ]),
-                      child: const Icon(FeatherIcons.book),
+                  child: const Icon(FeatherIcons.book),
                 ),
                 label: const Text('Notes'),
               ),
@@ -88,7 +98,7 @@ class _NavRailState extends State<NavRail> {
                           offset: const Offset(0, 2),
                         )
                       ]),
-                      child: const Icon(FeatherIcons.grid),
+                  child: const Icon(FeatherIcons.grid),
                 ),
                 label: const Text('Learning'),
               ),
@@ -107,7 +117,7 @@ class _NavRailState extends State<NavRail> {
                           offset: const Offset(0, 2),
                         )
                       ]),
-                      child: const Icon(FeatherIcons.pieChart),
+                  child: const Icon(FeatherIcons.pieChart),
                 ),
                 label: const Text('Stats'),
               ),
