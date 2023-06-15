@@ -1,4 +1,5 @@
 import 'package:devhabit/Presentation/Components/export_components.dart';
+import 'package:devhabit/Presentation/Screens/Home/Widgets/date_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -14,10 +15,9 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    
     DateTime today = DateTime.now();
     String date = "${today.day}";
-    
+
     DateFormat formatter = DateFormat.MMMM('en');
     String month = formatter.format(today);
 
@@ -57,22 +57,8 @@ class _HomePageState extends State<HomePage> {
                 margin: EdgeInsets.only(left: getScreenWidth(context) * 0.035),
                 child: Row(
                   children: [
-                    Text(
-                      '$date - ',
-                      style: GoogleFonts.leagueSpartan(
-                        color: blackColor,
-                        fontWeight: FontWeight.bold,
-                        fontSize: getScreenWidth(context) * 0.07,
-                      ),
-                    ),
-                    Text(
-                      month,
-                      style: GoogleFonts.leagueSpartan(
-                        color: blackColor,
-                        fontWeight: FontWeight.bold,
-                        fontSize: getScreenWidth(context) * 0.07,
-                      ),
-                    ),
+                    DateText(text: '$date - '),
+                    DateText(text: month),
                   ],
                 ),
               ),
