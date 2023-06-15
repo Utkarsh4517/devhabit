@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:devhabit/Presentation/Components/export_components.dart';
 import 'package:devhabit/Presentation/Screens/Home/Widgets/date_text.dart';
 import 'package:flutter/material.dart';
@@ -84,7 +86,9 @@ class _HomePageState extends State<HomePage> {
                     child: Text(
                       'create a new task',
                       style: GoogleFonts.leagueSpartan(
-                          color: blackColor, fontWeight: FontWeight.bold, fontSize: getScreenheight(context) * 0.03),
+                          color: blackColor,
+                          fontWeight: FontWeight.bold,
+                          fontSize: getScreenheight(context) * 0.03),
                     ),
                   ),
 
@@ -93,17 +97,47 @@ class _HomePageState extends State<HomePage> {
                     margin: EdgeInsets.all(getScreenWidth(context) * 0.08),
                     child: TextFormField(
                       decoration: InputDecoration(
-                        prefixIcon: const Icon(FeatherIcons.bookmark),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20)
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(color: blackColor,width: 2,),
-                          borderRadius: BorderRadius.circular(20)
-                        ),
-                        hintText: 'Task'
-                      ),
+                          prefixIcon: const Icon(FeatherIcons.bookmark),
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20)),
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                color: blackColor,
+                                width: 2,
+                              ),
+                              borderRadius: BorderRadius.circular(20)),
+                          hintText: 'Task'),
                     ),
+                  ),
+
+                  // calender section
+                  Row(
+                    children: [
+                      Container(
+                        alignment: Alignment.centerLeft,
+                        margin: EdgeInsets.only(
+                            left: getScreenWidth(context) * 0.07),
+                        width: getScreenWidth(context) * 0.25,
+                        height: getScreenWidth(context) * 0.12,
+                        decoration: BoxDecoration(
+                          color: lightPink,
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        child: const Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Icon(FeatherIcons.calendar),
+                            Text(
+                              'Time',
+                              style: TextStyle(
+                                color: blackColor,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   )
                 ],
               ),
