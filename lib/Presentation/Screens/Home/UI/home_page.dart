@@ -22,48 +22,55 @@ class _HomePageState extends State<HomePage> {
     String month = formatter.format(today);
 
     return Scaffold(
-        appBar: AppBar(
-          toolbarHeight: getScreenheight(context) * 0.1,
-          backgroundColor: whiteColor,
-          elevation: 0,
-          title: Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'devhabit.',
-                style: GoogleFonts.leagueSpartan(
-                    color: blackColor,
-                    fontWeight: FontWeight.bold,
-                    fontSize: getScreenWidth(context) * 0.08),
-              )),
-          actions: [
-            Container(
-              margin: EdgeInsets.only(right: getScreenWidth(context) * 0.03),
-              child: IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  FeatherIcons.user,
+      appBar: AppBar(
+        toolbarHeight: getScreenheight(context) * 0.1,
+        backgroundColor: whiteColor,
+        elevation: 0,
+        title: Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              'devhabit.',
+              style: GoogleFonts.leagueSpartan(
                   color: blackColor,
-                ),
+                  fontWeight: FontWeight.bold,
+                  fontSize: getScreenWidth(context) * 0.08),
+            )),
+        actions: [
+          Container(
+            margin: EdgeInsets.only(right: getScreenWidth(context) * 0.03),
+            child: IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                FeatherIcons.user,
+                color: blackColor,
+              ),
+            ),
+          ),
+        ],
+      ),
+      backgroundColor: whiteColor,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              width: getScreenWidth(context) * 0.5,
+              margin: EdgeInsets.only(left: getScreenWidth(context) * 0.035),
+              child: Row(
+                children: [
+                  DateText(text: '$date - '),
+                  DateText(text: month),
+                ],
               ),
             ),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        elevation: 20,
         backgroundColor: whiteColor,
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              Container(
-                width: getScreenWidth(context) * 0.5,
-                margin: EdgeInsets.only(left: getScreenWidth(context) * 0.035),
-                child: Row(
-                  children: [
-                    DateText(text: '$date - '),
-                    DateText(text: month),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ));
+        onPressed: () {},
+        child: const Icon(FeatherIcons.plus,color: blackColor,),
+      ),
+    );
   }
 }
