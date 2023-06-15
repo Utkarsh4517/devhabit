@@ -65,11 +65,57 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
+
+      // add task
       floatingActionButton: FloatingActionButton(
         elevation: 20,
         backgroundColor: whiteColor,
-        onPressed: () {},
-        child: const Icon(FeatherIcons.plus,color: blackColor,),
+        onPressed: () {
+          showModalBottomSheet(
+            context: context,
+            builder: (context) => Container(
+              width: getScreenWidth(context) * 0.9,
+              decoration:
+                  BoxDecoration(borderRadius: BorderRadius.circular(20)),
+              child: Column(
+                children: [
+                  Container(
+                    margin: EdgeInsets.all(getScreenWidth(context) * 0.04),
+                    child: Text(
+                      'create a new task',
+                      style: GoogleFonts.leagueSpartan(
+                          color: blackColor, fontWeight: FontWeight.bold, fontSize: getScreenheight(context) * 0.03),
+                    ),
+                  ),
+
+                  // text form field which contains the task
+                  Container(
+                    margin: EdgeInsets.all(getScreenWidth(context) * 0.08),
+                    child: TextFormField(
+                      decoration: InputDecoration(
+                        prefixIcon: const Icon(FeatherIcons.bookmark),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20)
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(color: blackColor,width: 2,),
+                          borderRadius: BorderRadius.circular(20)
+                        ),
+                        hintText: 'Task'
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          );
+        },
+        child: const Icon(
+          FeatherIcons.plus,
+          color: blackColor,
+        ),
       ),
     );
   }
