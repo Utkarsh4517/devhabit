@@ -6,6 +6,7 @@ import 'package:day_night_time_picker/lib/daynight_timepicker.dart';
 import 'package:devhabit/Presentation/Components/export_components.dart';
 import 'package:devhabit/Presentation/Components/labels.dart';
 import 'package:devhabit/Presentation/Screens/Home/Widgets/date_text.dart';
+import 'package:devhabit/Presentation/Screens/Home/Widgets/taskform.dart';
 import 'package:devhabit/Presentation/Screens/Profile/UI/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
@@ -102,35 +103,24 @@ class _HomePageState extends State<HomePage> {
                   BoxDecoration(borderRadius: BorderRadius.circular(20)),
               child: Column(
                 children: [
-                  Container(
-                    margin: EdgeInsets.all(getScreenWidth(context) * 0.04),
-                    child: Text(
-                      'create a new task',
-                      style: GoogleFonts.leagueSpartan(
-                          color: blackColor,
-                          fontWeight: FontWeight.bold,
-                          fontSize: getScreenheight(context) * 0.03),
-                    ),
-                  ),
+                  // Container(
+                  //   margin: EdgeInsets.all(getScreenWidth(context) * 0.04),
+                  //   child: Text(
+                  //     'create a new task',
+                  //     style: GoogleFonts.leagueSpartan(
+                  //         color: blackColor,
+                  //         fontWeight: FontWeight.bold,
+                  //         fontSize: getScreenheight(context) * 0.03),
+                  //   ),
+                  // ),
 
                   // text form field which contains the task
-                  Container(
-                    margin: EdgeInsets.all(getScreenWidth(context) * 0.08),
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                          prefixIcon: const Icon(FeatherIcons.bookmark),
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20)),
-                          focusedBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                color: blackColor,
-                                width: 2,
-                              ),
-                              borderRadius: BorderRadius.circular(20)),
-                          hintText: 'Task'),
-                    ),
-                  ),
+                  const TaskForm(
+                      hintText: 'Task title', icon: FeatherIcons.bookmark),
 
+                  // text form field which contains the description
+                  const TaskForm(
+                      hintText: 'Task description', icon: FeatherIcons.book),
                   // calender section
                   Row(
                     children: [
@@ -150,7 +140,8 @@ class _HomePageState extends State<HomePage> {
                               print('Picker closed');
                             },
                             iconColor: whiteColor,
-                            minDateTime: DateTime(2023, 1, 1),
+                            minDateTime:
+                                DateTime(yearInt, monthInt, dateInt - 1),
                             maxDateTime: DateTime(2024, 12, 31),
                             initialDateTime:
                                 DateTime(yearInt, monthInt, dateInt),
@@ -159,19 +150,21 @@ class _HomePageState extends State<HomePage> {
                         child: Container(
                           alignment: Alignment.centerLeft,
                           margin: EdgeInsets.symmetric(
-                              horizontal: getScreenWidth(context) * 0.1),
+                            horizontal: getScreenWidth(context) * 0.1,
+                          ).copyWith(top: getScreenWidth(context) * 0.05),
                           width: getScreenWidth(context) * 0.8,
                           height: getScreenWidth(context) * 0.12,
                           decoration: BoxDecoration(
-                            color: lightPink,
+                            color: lightBlue,
                             borderRadius: BorderRadius.circular(15),
                           ),
                           child: Row(
                             children: [
                               Container(
                                 margin: EdgeInsets.only(
-                                    left: getScreenWidth(context) * 0.03,
-                                    right: getScreenWidth(context) * 0.18),
+                                  left: getScreenWidth(context) * 0.03,
+                                  right: getScreenWidth(context) * 0.18,
+                                ),
                                 child: const Icon(
                                   FeatherIcons.calendar,
                                 ),
@@ -190,7 +183,11 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                   Container(
-                    margin: EdgeInsets.symmetric(horizontal: getScreenWidth(context) * 0.05),
+                    margin: EdgeInsets.symmetric(
+                      horizontal: getScreenWidth(context) * 0.05,
+                    ).copyWith(
+                      top: getScreenWidth(context) * 0.03,
+                    ),
                     child: const Wrap(
                       children: [
                         LabelChip(color: pink, text: 'Important'),
