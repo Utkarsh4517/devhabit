@@ -4,6 +4,7 @@ import 'package:bottom_picker/bottom_picker.dart';
 import 'package:day_night_time_picker/day_night_time_picker.dart';
 import 'package:day_night_time_picker/lib/daynight_timepicker.dart';
 import 'package:devhabit/Presentation/Components/export_components.dart';
+import 'package:devhabit/Presentation/Components/labels.dart';
 import 'package:devhabit/Presentation/Screens/Home/Widgets/date_text.dart';
 import 'package:devhabit/Presentation/Screens/Profile/UI/profile_page.dart';
 import 'package:flutter/material.dart';
@@ -57,8 +58,10 @@ class _HomePageState extends State<HomePage> {
             margin: EdgeInsets.only(right: getScreenWidth(context) * 0.03),
             child: IconButton(
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const ProfilePage()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ProfilePage()));
               },
               icon: const Icon(
                 FeatherIcons.user,
@@ -185,7 +188,20 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                     ],
-                  )
+                  ),
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: getScreenWidth(context) * 0.05),
+                    child: const Wrap(
+                      children: [
+                        LabelChip(color: pink, text: 'Important'),
+                        LabelChip(color: blue, text: 'Study'),
+                        LabelChip(color: lightPurple, text: 'DSA'),
+                        LabelChip(color: pink, text: 'Web D'),
+                        LabelChip(color: blue, text: 'Study'),
+                        LabelChip(color: lightPurple, text: 'Development'),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),

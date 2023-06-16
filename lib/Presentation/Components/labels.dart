@@ -1,3 +1,4 @@
+import 'package:devhabit/Presentation/Components/export_components.dart';
 import 'package:flutter/material.dart';
 
 class LabelChip extends StatefulWidget {
@@ -16,12 +17,15 @@ class LabelChip extends StatefulWidget {
 class _LabelChipState extends State<LabelChip> {
   @override
   Widget build(BuildContext context) {
-    return Chip(
-      backgroundColor: widget.color,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: getScreenWidth(context)* 0.02),
+      child: Chip(
+        backgroundColor: widget.color,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        label: Text(widget.text),
       ),
-      label: Text(widget.text),
     );
   }
 }

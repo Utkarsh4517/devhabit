@@ -69,7 +69,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 onTap: signOut,
                 child: Container(
                   alignment: Alignment.centerLeft,
-                  margin: EdgeInsets.only(left: getScreenWidth(context) * 0.05),
+                  margin: EdgeInsets.only(left: getScreenWidth(context) * 0.04),
                   child: const Row(
                     children: [
                       Icon(FeatherIcons.logOut),
