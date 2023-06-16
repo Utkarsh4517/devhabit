@@ -29,7 +29,6 @@ class _ProfilePageState extends State<ProfilePage> {
         _avatarUrl = avatarUrl;
       });
 
-      print('Avatar URL: $avatarUrl');
     }
 
     return Scaffold(
