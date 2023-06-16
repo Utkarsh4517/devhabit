@@ -5,6 +5,7 @@ import 'package:day_night_time_picker/day_night_time_picker.dart';
 import 'package:day_night_time_picker/lib/daynight_timepicker.dart';
 import 'package:devhabit/Presentation/Components/export_components.dart';
 import 'package:devhabit/Presentation/Screens/Home/Widgets/date_text.dart';
+import 'package:devhabit/Presentation/Screens/Profile/UI/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -55,7 +56,10 @@ class _HomePageState extends State<HomePage> {
           Container(
             margin: EdgeInsets.only(right: getScreenWidth(context) * 0.03),
             child: IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const ProfilePage()));
+              },
               icon: const Icon(
                 FeatherIcons.user,
                 color: blackColor,
@@ -145,7 +149,8 @@ class _HomePageState extends State<HomePage> {
                             iconColor: whiteColor,
                             minDateTime: DateTime(2023, 1, 1),
                             maxDateTime: DateTime(2024, 12, 31),
-                            initialDateTime: DateTime(yearInt, monthInt, dateInt),
+                            initialDateTime:
+                                DateTime(yearInt, monthInt, dateInt),
                           ).show(context);
                         },
                         child: Container(
