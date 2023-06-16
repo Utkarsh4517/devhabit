@@ -1,6 +1,7 @@
 import 'package:devhabit/Presentation/Components/export_components.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -63,11 +64,29 @@ class _ProfilePageState extends State<ProfilePage> {
                       fontWeight: FontWeight.bold,
                       fontSize: getScreenWidth(context) * 0.05),
                 ),
+              ),
+              SizedBox(height: getScreenheight(context) * 0.5),
+              GestureDetector(
+                onTap: signOut,
+                child: Container(
+                  alignment: Alignment.centerLeft,
+                  margin: EdgeInsets.only(left: getScreenWidth(context) * 0.05),
+                  child: const Row(
+                    children: [
+                      Icon(FeatherIcons.logOut),
+                      Text(' Logout')
+                    ],
+                  ),
+                ),
               )
             ],
           ),
         ),
       ),
     );
+  }
+  void signOut()  {
+    FirebaseAuth.instance.signOut();
+    Navigator.pop(context);
   }
 }
