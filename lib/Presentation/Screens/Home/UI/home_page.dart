@@ -199,6 +199,30 @@ class _HomePageState extends State<HomePage> {
                       ],
                     ),
                   ),
+
+                  // Add task button
+
+                  GestureDetector(
+                    onTap: (){},
+                    child: Container(
+                      padding:
+                          EdgeInsets.all(getScreenWidth(context) * 0.05).copyWith(
+                        left: getScreenWidth(context) * 0.33,
+                        right: getScreenWidth(context) * 0.33,
+                      ),
+                      margin: EdgeInsets.only(
+                        top: getScreenWidth(context) * 0.03,
+                      ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: lightPurple,
+                      ),
+                      child: Text(
+                        'Add Task',
+                        style: GoogleFonts.leagueSpartan(fontWeight: FontWeight.bold, fontSize: getScreenWidth(context) * 0.035),
+                      ),
+                    ),
+                  )
                 ],
               ),
             ),
