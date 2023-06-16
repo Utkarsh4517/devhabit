@@ -1,5 +1,8 @@
 import 'dart:math';
 
+import 'package:bottom_picker/bottom_picker.dart';
+import 'package:day_night_time_picker/day_night_time_picker.dart';
+import 'package:day_night_time_picker/lib/daynight_timepicker.dart';
 import 'package:devhabit/Presentation/Components/export_components.dart';
 import 'package:devhabit/Presentation/Screens/Home/Widgets/date_text.dart';
 import 'package:flutter/material.dart';
@@ -15,10 +18,21 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  Time _time = Time(hour: 11, minute: 30, second: 20);
+
+  void onTimeChanged(Time newTime) {
+    setState(() {
+      _time = newTime;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     DateTime today = DateTime.now();
     String date = "${today.day}";
+    int dateInt = today.day;
+    int monthInt = today.month;
+    int yearInt = today.year;
 
     DateFormat formatter = DateFormat.MMMM('en');
     String month = formatter.format(today);
@@ -113,28 +127,56 @@ class _HomePageState extends State<HomePage> {
                   // calender section
                   Row(
                     children: [
-                      Container(
-                        alignment: Alignment.centerLeft,
-                        margin: EdgeInsets.only(
-                            left: getScreenWidth(context) * 0.07),
-                        width: getScreenWidth(context) * 0.25,
-                        height: getScreenWidth(context) * 0.12,
-                        decoration: BoxDecoration(
-                          color: lightPink,
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        child: const Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Icon(FeatherIcons.calendar),
-                            Text(
-                              'Time',
-                              style: TextStyle(
-                                color: blackColor,
-                                fontWeight: FontWeight.bold,
-                              ),
+                      GestureDetector(
+                        onTap: () {
+                          BottomPicker.dateTime(
+                            title: 'Set the date and time for the task',
+                            titleStyle: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: getScreenWidth(context) * 0.04,
+                              color: blackColor,
                             ),
-                          ],
+                            onSubmit: (date) {
+                              print(date);
+                            },
+                            onClose: () {
+                              print('Picker closed');
+                            },
+                            iconColor: whiteColor,
+                            minDateTime: DateTime(2023, 1, 1),
+                            maxDateTime: DateTime(2024, 12, 31),
+                            initialDateTime: DateTime(yearInt, monthInt, dateInt),
+                          ).show(context);
+                        },
+                        child: Container(
+                          alignment: Alignment.centerLeft,
+                          margin: EdgeInsets.symmetric(
+                              horizontal: getScreenWidth(context) * 0.1),
+                          width: getScreenWidth(context) * 0.8,
+                          height: getScreenWidth(context) * 0.12,
+                          decoration: BoxDecoration(
+                            color: lightPink,
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: Row(
+                            children: [
+                              Container(
+                                margin: EdgeInsets.only(
+                                    left: getScreenWidth(context) * 0.03,
+                                    right: getScreenWidth(context) * 0.18),
+                                child: const Icon(
+                                  FeatherIcons.calendar,
+                                ),
+                              ),
+                              const Text(
+                                'Select Date & Time',
+                                style: TextStyle(
+                                  color: blackColor,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ],
