@@ -1,13 +1,18 @@
 import 'dart:math';
 
 import 'package:bottom_picker/bottom_picker.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:day_night_time_picker/day_night_time_picker.dart';
 import 'package:day_night_time_picker/lib/daynight_timepicker.dart';
+import 'package:devhabit/Data/firebase_service.dart';
+import 'package:devhabit/Data/task_class.dart';
 import 'package:devhabit/Presentation/Components/export_components.dart';
 import 'package:devhabit/Presentation/Components/labels.dart';
+import 'package:devhabit/Presentation/Components/todo_card.dart';
 import 'package:devhabit/Presentation/Screens/Home/Widgets/date_text.dart';
 import 'package:devhabit/Presentation/Screens/Home/Widgets/taskform.dart';
 import 'package:devhabit/Presentation/Screens/Profile/UI/profile_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -22,12 +27,25 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   Time _time = Time(hour: 11, minute: 30, second: 20);
+  User? user = FirebaseAuth.instance.currentUser;
+
+  final _titleController = TextEditingController();
+  final _descriptionController = TextEditingController();
+  String _selectedCategory = '';
+  DateTime? _selectedDateTime;
+
+  // list of active task
+  List<Task> _activeTasks = [];
+  List<String> activeTasks = [];
 
   void onTimeChanged(Time newTime) {
     setState(() {
       _time = newTime;
     });
   }
+
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -203,10 +221,10 @@ class _HomePageState extends State<HomePage> {
                   // Add task button
 
                   GestureDetector(
-                    onTap: (){},
+                    onTap: () {},
                     child: Container(
-                      padding:
-                          EdgeInsets.all(getScreenWidth(context) * 0.05).copyWith(
+                      padding: EdgeInsets.all(getScreenWidth(context) * 0.05)
+                          .copyWith(
                         left: getScreenWidth(context) * 0.33,
                         right: getScreenWidth(context) * 0.33,
                       ),
@@ -219,7 +237,9 @@ class _HomePageState extends State<HomePage> {
                       ),
                       child: Text(
                         'Add Task',
-                        style: GoogleFonts.leagueSpartan(fontWeight: FontWeight.bold, fontSize: getScreenWidth(context) * 0.035),
+                        style: GoogleFonts.leagueSpartan(
+                            fontWeight: FontWeight.bold,
+                            fontSize: getScreenWidth(context) * 0.035),
                       ),
                     ),
                   )
@@ -237,4 +257,4 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-}
+
