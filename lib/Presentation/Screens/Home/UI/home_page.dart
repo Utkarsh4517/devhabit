@@ -44,7 +44,6 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  }
 
 
   @override
@@ -257,4 +256,4 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-
+}
