@@ -1,14 +1,7 @@
-import 'dart:math';
-
 import 'package:bottom_picker/bottom_picker.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:day_night_time_picker/day_night_time_picker.dart';
-import 'package:day_night_time_picker/lib/daynight_timepicker.dart';
-import 'package:devhabit/Data/firebase_service.dart';
-import 'package:devhabit/Data/task_class.dart';
 import 'package:devhabit/Presentation/Components/export_components.dart';
 import 'package:devhabit/Presentation/Components/labels.dart';
-import 'package:devhabit/Presentation/Components/todo_card.dart';
 import 'package:devhabit/Presentation/Screens/Home/Widgets/date_text.dart';
 import 'package:devhabit/Presentation/Screens/Home/Widgets/taskform.dart';
 import 'package:devhabit/Presentation/Screens/Profile/UI/profile_page.dart';
@@ -26,25 +19,15 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  // ignore: unused_field
   Time _time = Time(hour: 11, minute: 30, second: 20);
   User? user = FirebaseAuth.instance.currentUser;
-
-  final _titleController = TextEditingController();
-  final _descriptionController = TextEditingController();
-  String _selectedCategory = '';
-  DateTime? _selectedDateTime;
-
-  // list of active task
-  List<Task> _activeTasks = [];
-  List<String> activeTasks = [];
 
   void onTimeChanged(Time newTime) {
     setState(() {
       _time = newTime;
     });
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -120,17 +103,6 @@ class _HomePageState extends State<HomePage> {
                   BoxDecoration(borderRadius: BorderRadius.circular(20)),
               child: Column(
                 children: [
-                  // Container(
-                  //   margin: EdgeInsets.all(getScreenWidth(context) * 0.04),
-                  //   child: Text(
-                  //     'create a new task',
-                  //     style: GoogleFonts.leagueSpartan(
-                  //         color: blackColor,
-                  //         fontWeight: FontWeight.bold,
-                  //         fontSize: getScreenheight(context) * 0.03),
-                  //   ),
-                  // ),
-
                   // text form field which contains the task
                   const TaskForm(
                       hintText: 'Task title', icon: FeatherIcons.bookmark),
@@ -150,12 +122,8 @@ class _HomePageState extends State<HomePage> {
                               fontSize: getScreenWidth(context) * 0.04,
                               color: blackColor,
                             ),
-                            onSubmit: (date) {
-                              print(date);
-                            },
-                            onClose: () {
-                              print('Picker closed');
-                            },
+                            onSubmit: (date) {},
+                            onClose: () {},
                             iconColor: whiteColor,
                             minDateTime:
                                 DateTime(yearInt, monthInt, dateInt - 1),
