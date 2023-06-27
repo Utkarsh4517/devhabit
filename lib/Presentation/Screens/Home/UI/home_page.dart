@@ -54,8 +54,6 @@ class _HomePageState extends State<HomePage> {
   void submitTask() {
     String title = titleController.text;
     String description = descriptionController.text;
-    print('title is: $titleController.text');
-
     Task newTask = Task(
       description: description,
       title: title,
@@ -64,6 +62,8 @@ class _HomePageState extends State<HomePage> {
     );
 
     addTask(newTask);
+    titleController.clear();
+    descriptionController.clear();
   }
 
   @override
