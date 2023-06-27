@@ -1,5 +1,7 @@
 import 'package:bottom_picker/bottom_picker.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:day_night_time_picker/day_night_time_picker.dart';
+import 'package:devhabit/Data/task_class.dart';
 import 'package:devhabit/Presentation/Components/export_components.dart';
 import 'package:devhabit/Presentation/Components/labels.dart';
 import 'package:devhabit/Presentation/Screens/Home/Widgets/date_text.dart';
@@ -27,6 +29,41 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       _time = newTime;
     });
+  }
+
+  // text editing controllers
+
+  final titleController = TextEditingController();
+  final descriptionController = TextEditingController();
+
+  // method to add new task to the database
+  Future<CollectionReference> addTask(Task task) async {
+    final collection = FirebaseFirestore.instance
+        .collection('users')
+        .doc(task.userId)
+        .collection('tasks');
+
+    return collection
+      ..add({
+        'title': task.title,
+        'description': task.description,
+      });
+  }
+
+  // method to submit new task
+  void submitTask() {
+    String title = titleController.text;
+    String description = descriptionController.text;
+    print('title is: $titleController.text');
+
+    Task newTask = Task(
+      description: description,
+      title: title,
+      userId: FirebaseAuth.instance.currentUser!.uid,
+      taskId: '',
+    );
+
+    addTask(newTask);
   }
 
   @override
@@ -104,12 +141,16 @@ class _HomePageState extends State<HomePage> {
               child: Column(
                 children: [
                   // text form field which contains the task
-                  const TaskForm(
-                      hintText: 'Task title', icon: FeatherIcons.bookmark),
+                  TaskForm(
+                      controller: titleController,
+                      hintText: 'Task title',
+                      icon: FeatherIcons.bookmark),
 
                   // text form field which contains the description
-                  const TaskForm(
-                      hintText: 'Task description', icon: FeatherIcons.book),
+                  TaskForm(
+                      controller: descriptionController,
+                      hintText: 'Task description',
+                      icon: FeatherIcons.book),
                   // calender section
                   Row(
                     children: [
@@ -190,14 +231,17 @@ class _HomePageState extends State<HomePage> {
                     width: getScreenWidth(context) * 0.8,
                     height: getScreenWidth(context) * 0.13,
                     child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(backgroundColor: lightBlue, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
-                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: lightBlue,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12))),
+                      onPressed: () {
+                        submitTask();
+                      },
                       child: Text(
                         'Add Task',
                         style: GoogleFonts.roboto(
-                          fontWeight: FontWeight.bold,
-                          color: blackColor
-                        ),
+                            fontWeight: FontWeight.bold, color: blackColor),
                       ),
                     ),
                   ),

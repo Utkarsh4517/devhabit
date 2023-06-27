@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 class TaskForm extends StatelessWidget {
   final String hintText;
   final IconData icon;
+  final TextEditingController controller;
   const TaskForm({
+    required this.controller,
     required this.hintText,
     required this.icon,
     super.key,
@@ -15,6 +17,7 @@ class TaskForm extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: getScreenWidth(context) * 0.08).copyWith(top: getScreenWidth(context) * 0.08),
       child: TextFormField(
+        controller: controller,
         decoration: InputDecoration(
             prefixIcon: Icon(icon),
             enabledBorder:
