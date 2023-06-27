@@ -66,8 +66,30 @@ class _HomePageState extends State<HomePage> {
     descriptionController.clear();
   }
 
+  // method to retrive the tasks
+  Stream<List<Task>> getTaskForUser(String userId) {
+    final collection = FirebaseFirestore.instance
+        .collection('users')
+        .doc(userId)
+        .collection('tasks');
+    return collection.snapshots().map((snapshot) {
+      return snapshot.docs.map((doc) {
+        final data = doc.data();
+        return Task(
+          taskId: doc.id,
+          userId: userId,
+          title: data['title'],
+          description: data['description'],
+        );
+      }).toList();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    String userId = FirebaseAuth.instance.currentUser!.uid;
+    Stream<List<Task>> taskStream = getTaskForUser(userId);
+
     DateTime today = DateTime.now();
     String date = "${today.day}";
     int dateInt = today.day;
@@ -123,6 +145,21 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
+            StreamBuilder(
+              stream: taskStream,
+              builder: (context, snapshot) {
+                if(snapshot.hasData) {
+                  List<Task> tasks = snapshot.data!;
+                  for(Task task in tasks ){
+                    print('title ${task.title} \n');
+                    print('description ${task.description} \n');
+                  }
+                } else if(snapshot.hasError) {
+                  print('Error retrieving tasks: ${snapshot.error}');
+                }
+                return Container();
+              },
+            )
           ],
         ),
       ),
