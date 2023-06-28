@@ -5,6 +5,7 @@ import 'package:devhabit/Data/task_class.dart';
 import 'package:devhabit/Presentation/Components/export_components.dart';
 import 'package:devhabit/Presentation/Components/labels.dart';
 import 'package:devhabit/Presentation/Screens/Home/Widgets/date_text.dart';
+import 'package:devhabit/Presentation/Screens/Home/Widgets/task_list_tile.dart';
 import 'package:devhabit/Presentation/Screens/Home/Widgets/taskform.dart';
 import 'package:devhabit/Presentation/Screens/Profile/UI/profile_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -148,15 +149,22 @@ class _HomePageState extends State<HomePage> {
             StreamBuilder(
               stream: taskStream,
               builder: (context, snapshot) {
-                if(snapshot.hasData) {
+                if (snapshot.hasData) {
                   List<Task> tasks = snapshot.data!;
-                  for(Task task in tasks ){
-                    print('title ${task.title} \n');
-                    print('description ${task.description} \n');
-                  }
-                } else if(snapshot.hasError) {
-                  print('Error retrieving tasks: ${snapshot.error}');
-                }
+                  return Container(
+                    height: getScreenheight(context) * 0.4,
+                    child: ListView.builder(
+                      itemCount: tasks.length,
+                      itemBuilder: (context, index) {
+                        Task task = tasks[index];
+                        return TaskCard(
+                          title: task.title,
+                          description: task.description,
+                        );
+                      },
+                    ),
+                  );
+                } else if (snapshot.hasError) {}
                 return Container();
               },
             )
