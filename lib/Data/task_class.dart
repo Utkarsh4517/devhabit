@@ -3,6 +3,7 @@ class Task {
   final String description;
   final String userId;
   final String taskId;
+  final bool isCompleted;
   // final String category;
   // final DateTime dateTime;
 
@@ -11,6 +12,7 @@ class Task {
     required this.description,
     required this.taskId,
     required this.userId,
+    required this.isCompleted,
     // required this.category,
     // required this.dateTime,
   });
