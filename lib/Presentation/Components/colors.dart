@@ -9,4 +9,4 @@ const whiteColor = Colors.white;
 const blackColor = Colors.black;
 
 const greyColor = Color(0xffA2A3A2);
-const lightGreyColor = Color(0xffE9EAE9);
+const lightGreyColor = Color.fromARGB(255, 248, 248, 248);
