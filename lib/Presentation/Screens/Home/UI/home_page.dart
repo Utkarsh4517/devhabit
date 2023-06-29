@@ -153,7 +153,7 @@ class _HomePageState extends State<HomePage> {
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   List<Task> tasks = snapshot.data!;
-                  return Container(
+                  return SizedBox(
                     height: getScreenheight(context) * 0.4,
                     child: ListView.builder(
                       itemCount: tasks.length,
