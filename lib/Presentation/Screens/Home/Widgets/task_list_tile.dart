@@ -10,10 +10,12 @@ class TaskCard extends StatefulWidget {
   final String title;
   final String description;
   final String taskId;
-  const TaskCard({
+  // DateTime? completionDateTime;
+  TaskCard({
     required this.title,
     required this.description,
     required this.taskId,
+    // this.completionDateTime,
     super.key,
   });
 
@@ -36,6 +38,9 @@ class _TaskCardState extends State<TaskCard> {
 
     setState(() {
       isChecked = taskSnapshot.data()?['isCompleted'] ?? false;
+      // DateTime? completionDateTime = taskSnapshot.data()?['completionDateTime'];
+      // Assign the retrieved completionDateTime to the widget's task object
+      // widget.completionDateTime = completionDateTime;
     });
   }
 
@@ -65,11 +70,13 @@ class _TaskCardState extends State<TaskCard> {
 
     await collection.doc(widget.taskId).delete();
   }
+
   @override
   void initState() {
     getCheckValue();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -103,9 +110,12 @@ class _TaskCardState extends State<TaskCard> {
               ),
             ),
           ),
-          title: Text(
-            widget.title,
-            style: AppStyle.mainTitle,
+          title: GestureDetector(
+            onTap: showExpandedTaskDialog,
+            child: Text(
+              widget.title,
+              style: AppStyle.mainTitle,
+            ),
           ),
           subtitle: Text(
             widget.description,
@@ -163,13 +173,25 @@ class _TaskCardState extends State<TaskCard> {
   }
 
   showExpandedTaskDialog() {
+    // print(widget.completionDateTime);
+    ThemeData(useMaterial3: true);
     showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
+            backgroundColor: Colors.transparent,
             content: Container(
+              width: getScreenWidth(context) * 0.9,
+              height: getScreenheight(context) * 0.3,
+              decoration: BoxDecoration(
+                  color: whiteColor, borderRadius: BorderRadius.circular(20)),
               child: Column(
-                children: [],
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(widget.title),
+                  Text(widget.description),
+                  // Text(completionDateTime.toString())
+                ],
               ),
             ),
           );

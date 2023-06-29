@@ -25,6 +25,7 @@ class _HomePageState extends State<HomePage> {
   // ignore: unused_field
   Time _time = Time(hour: 11, minute: 30, second: 20);
   User? user = FirebaseAuth.instance.currentUser;
+  DateTime completionDateTime = DateTime.now();
 
   void onTimeChanged(Time newTime) {
     setState(() {
@@ -49,6 +50,7 @@ class _HomePageState extends State<HomePage> {
         'title': task.title,
         'description': task.description,
         'isCompleted': task.isCompleted,
+        'completionDateTime': task.completionDateTime,
       });
   }
 
@@ -62,6 +64,7 @@ class _HomePageState extends State<HomePage> {
       userId: FirebaseAuth.instance.currentUser!.uid,
       taskId: '',
       isCompleted: false,
+      completionDateTime: completionDateTime,
     );
 
     addTask(newTask);
@@ -93,6 +96,7 @@ class _HomePageState extends State<HomePage> {
     String userId = FirebaseAuth.instance.currentUser!.uid;
     Stream<List<Task>> taskStream = getTaskForUser(userId);
 
+    // date time for showing date at homepage
     DateTime today = DateTime.now();
     String date = "${today.day}";
     int dateInt = today.day;
@@ -217,7 +221,12 @@ class _HomePageState extends State<HomePage> {
                               fontSize: getScreenWidth(context) * 0.04,
                               color: blackColor,
                             ),
-                            onSubmit: (date) {},
+                            onSubmit: (date) {
+                              setState(() {
+                                completionDateTime = date;
+                              });
+                              print('selected time $completionDateTime');
+                            },
                             onClose: () {},
                             iconColor: whiteColor,
                             minDateTime:
