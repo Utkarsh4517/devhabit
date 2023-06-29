@@ -48,6 +48,7 @@ class _HomePageState extends State<HomePage> {
       ..add({
         'title': task.title,
         'description': task.description,
+        'isCompleted': task.isCompleted,
       });
   }
 
@@ -60,6 +61,7 @@ class _HomePageState extends State<HomePage> {
       title: title,
       userId: FirebaseAuth.instance.currentUser!.uid,
       taskId: '',
+      isCompleted: false,
     );
 
     addTask(newTask);
@@ -160,6 +162,7 @@ class _HomePageState extends State<HomePage> {
                         return TaskCard(
                           title: task.title,
                           description: task.description,
+                          taskId: task.taskId,
                         );
                       },
                     ),
