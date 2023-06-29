@@ -20,16 +20,13 @@ class _ProfilePageState extends State<ProfilePage> {
     // Find the provider data with Google Sign-In
     UserInfo googleUserInfo = providerData.firstWhere(
       (info) => info.providerId == 'google.com',
+      // ignore: null_check_always_fails
       orElse: () => null!,
     );
-    if (googleUserInfo != null) {
-      // Retrieve the user's avatar URL from Google Sign-In provider data
-      String avatarUrl = googleUserInfo.photoURL!;
-      setState(() {
-        _avatarUrl = avatarUrl;
-      });
-
-    }
+    String avatarUrl = googleUserInfo.photoURL!;
+    setState(() {
+      _avatarUrl = avatarUrl;
+    });
 
     return Scaffold(
       appBar: AppBar(

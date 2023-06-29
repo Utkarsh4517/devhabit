@@ -1,5 +1,4 @@
 import 'package:devhabit/Presentation/Components/navrail.dart';
-import 'package:devhabit/Presentation/Screens/Home/UI/home_page.dart';
 import 'package:devhabit/Presentation/Screens/auth/UI/login_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
