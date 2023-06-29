@@ -24,6 +24,21 @@ class TaskCard extends StatefulWidget {
 class _TaskCardState extends State<TaskCard> {
   bool isChecked = false;
 
+  void getCheckValue() async {
+    User? user = FirebaseAuth.instance.currentUser;
+    String userId = user!.uid;
+    final taskSnapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(userId)
+        .collection('tasks')
+        .doc(widget.taskId) // Replace taskId with the appropriate variable
+        .get();
+
+    setState(() {
+      isChecked = taskSnapshot.data()?['isCompleted'] ?? false;
+    });
+  }
+
   void _toggleTaskCompletion(bool? value) {
     User? user = FirebaseAuth.instance.currentUser;
     String userId = user!.uid;
@@ -50,7 +65,11 @@ class _TaskCardState extends State<TaskCard> {
 
     await collection.doc(widget.taskId).delete();
   }
-
+  @override
+  void initState() {
+    getCheckValue();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -114,23 +133,43 @@ class _TaskCardState extends State<TaskCard> {
                   children: [
                     Text(
                       'Are you sure want to delete this task?',
-                      style: GoogleFonts.roboto(fontSize: getScreenWidth(context) * 0.04, fontWeight: FontWeight.bold),
+                      style: GoogleFonts.roboto(
+                          fontSize: getScreenWidth(context) * 0.04,
+                          fontWeight: FontWeight.bold),
                     ),
                     SizedBox(height: getScreenWidth(context) * 0.035),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        TextButton(onPressed: (){
-                          Navigator.pop(context);
-                        }, child: const Text('No')),
-                        TextButton(onPressed: (){
-                          _deleteTask();
-                          Navigator.pop(context);
-                        }, child: const Text('Yes')),
+                        TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: const Text('No')),
+                        TextButton(
+                            onPressed: () {
+                              _deleteTask();
+                              Navigator.pop(context);
+                            },
+                            child: const Text('Yes')),
                       ],
                     )
                   ],
                 ),
+              ),
+            ),
+          );
+        });
+  }
+
+  showExpandedTaskDialog() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: Container(
+              child: Column(
+                children: [],
               ),
             ),
           );
