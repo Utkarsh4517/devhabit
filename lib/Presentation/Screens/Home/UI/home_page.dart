@@ -138,15 +138,21 @@ class _HomePageState extends State<HomePage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Container(
-              width: getScreenWidth(context) * 0.5,
-              margin: EdgeInsets.only(left: getScreenWidth(context) * 0.035),
-              child: Row(
-                children: [
-                  DateText(text: '$date - '),
-                  DateText(text: month),
-                ],
-              ),
+            Row(
+              children: [
+                Container(
+                  alignment: const AlignmentDirectional(-1, 0),
+                  width: getScreenWidth(context) * 0.5,
+                  margin: EdgeInsets.only(left: getScreenWidth(context) * 0.035),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      DateText(text: month),
+                      DateText(text: ' $date'),
+                    ],
+                  ),
+                ),
+              ],
             ),
             StreamBuilder(
               stream: taskStream,
