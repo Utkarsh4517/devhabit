@@ -10,12 +10,10 @@ class TaskCard extends StatefulWidget {
   final String title;
   final String description;
   final String taskId;
-  // DateTime? completionDateTime;
-  TaskCard({
+  const TaskCard({
     required this.title,
     required this.description,
     required this.taskId,
-    // this.completionDateTime,
     super.key,
   });
 
@@ -24,6 +22,7 @@ class TaskCard extends StatefulWidget {
 }
 
 class _TaskCardState extends State<TaskCard> {
+  DateTime? _completionDateTime;
   bool isChecked = false;
 
   void getCheckValue() async {
@@ -35,12 +34,15 @@ class _TaskCardState extends State<TaskCard> {
         .collection('tasks')
         .doc(widget.taskId) // Replace taskId with the appropriate variable
         .get();
+    
+    final Timestamp timestamp = taskSnapshot['completionDateTime'] as Timestamp;
+
+    final completionDateTime = timestamp.toDate();
+    
 
     setState(() {
       isChecked = taskSnapshot.data()?['isCompleted'] ?? false;
-      // DateTime? completionDateTime = taskSnapshot.data()?['completionDateTime'];
-      // Assign the retrieved completionDateTime to the widget's task object
-      // widget.completionDateTime = completionDateTime;
+      _completionDateTime = completionDateTime;
     });
   }
 
@@ -70,6 +72,8 @@ class _TaskCardState extends State<TaskCard> {
 
     await collection.doc(widget.taskId).delete();
   }
+
+
 
   @override
   void initState() {
@@ -173,7 +177,7 @@ class _TaskCardState extends State<TaskCard> {
   }
 
   showExpandedTaskDialog() {
-    // print(widget.completionDateTime);
+    
     ThemeData(useMaterial3: true);
     showDialog(
         context: context,
@@ -190,7 +194,7 @@ class _TaskCardState extends State<TaskCard> {
                 children: [
                   Text(widget.title),
                   Text(widget.description),
-                  // Text(completionDateTime.toString())
+                  Text(_completionDateTime!.toIso8601String()),
                 ],
               ),
             ),
