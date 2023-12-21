@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:devhabit/constants/dimensions.dart';
-import 'package:devhabit/features/onBoarding/widgets/animated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
 class IntroPage1 extends StatefulWidget {

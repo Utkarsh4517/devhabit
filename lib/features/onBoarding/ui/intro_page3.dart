@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:devhabit/constants/dimensions.dart';
+import 'package:devhabit/features/auth/service/auth_service.dart';
 import 'package:devhabit/features/onBoarding/services/on_boarding_handler.dart';
 import 'package:devhabit/features/onBoarding/widgets/animated_button.dart';
 import 'package:flutter/cupertino.dart';
@@ -16,10 +17,15 @@ class IntroPage3 extends StatefulWidget {
 
 class _IntroPage3State extends State<IntroPage3> {
   late RiveAnimationController _btnAnimationController;
+  late RiveAnimationController _authBtnAnimationController;
 
   @override
   void initState() {
     _btnAnimationController = OneShotAnimation(
+      "active",
+      autoplay: false,
+    );
+    _authBtnAnimationController = OneShotAnimation(
       "active",
       autoplay: false,
     );
@@ -85,7 +91,84 @@ class _IntroPage3State extends State<IntroPage3> {
                     text: 'Begin your journey!',
                     press: () {
                       _btnAnimationController.isActive = true;
-                      OnboardingHandler.completeOnboarding(context);
+                      // show auth dialog
+                      showGeneralDialog(
+                        barrierDismissible: true,
+                        barrierLabel: "Signin",
+                        context: context,
+                        pageBuilder: (
+                          context,
+                          _,
+                          __,
+                        ) =>
+                            Container(
+                          alignment: Alignment.center,
+                          padding: EdgeInsets.all(
+                            getScreenWidth(context) * 0.05,
+                          ),
+                          margin: EdgeInsets.symmetric(
+                            horizontal: getScreenWidth(context) * 0.05,
+                            vertical: getScreenheight(context) * 0.25,
+                          ),
+                          decoration: const BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(
+                                25,
+                              ),
+                            ),
+                          ),
+                          child: Scaffold(
+                            backgroundColor: Colors.transparent,
+                            body: Stack(
+                              children: [
+                                Column(
+                                  children: [
+                                    Container(
+                                      alignment: Alignment.center,
+                                      child: const Text(
+                                        'Sign in',
+                                        style: TextStyle(
+                                          fontFamily: "Poppins",
+                                          fontSize: 34,
+                                        ),
+                                      ),
+                                    ),
+                                    const Spacer(),
+                                    Container(
+                                      padding: EdgeInsets.all(
+                                        getScreenWidth(context) * 0.05,
+                                      ),
+                                      alignment: Alignment.center,
+                                      child: const Text(
+                                        'Kickstart your journey today with devhabit, your one stop solution to learn code',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                    ),
+                                    const Spacer(),
+                                    AnimatedButton(
+                                      btnAnimationController:
+                                          _authBtnAnimationController,
+                                      press: () {
+                                        _authBtnAnimationController.isActive =
+                                            true;
+                                        OnboardingHandler.completeOnboarding(
+                                            context);
+                                        AuthService()
+                                            .continueWithGoogle(context);
+                                      },
+                                      text: 'Continue with google!',
+                                    )
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
                     },
                   ),
                 ),

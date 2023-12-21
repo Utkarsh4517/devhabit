@@ -1,7 +1,7 @@
+import 'package:devhabit/features/home/ui/home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:devhabit/shared/nav_bar.dart';
 
 
 
@@ -25,7 +25,7 @@ class AuthService {
       if (user != null) {
         // ignore: use_build_context_synchronously
         Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => const NavigationScreen()));
+            MaterialPageRoute(builder: (context) => const HomeScreen()));
       }
       return user;
     } else {
