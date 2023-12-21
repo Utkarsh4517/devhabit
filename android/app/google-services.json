@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "227382904545",
+    "project_id": "devhabit-4517",
+    "storage_bucket": "devhabit-4517.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:227382904545:android:27acdc72c260f3345219a0",
+        "android_client_info": {
+          "package_name": "com.example.devhabit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "227382904545-02lqfq3oeg7rusqhnjbqabs88lflnlcv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.devhabit",
+            "certificate_hash": "41dd3638fb552c37a6fd4eded7e3d6161e1507ee"
+          }
+        },
+        {
+          "client_id": "227382904545-2q1s6ljsmtivt7498ie6j91rhqabmsgi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.devhabit",
+            "certificate_hash": "bc0dc0c5b4463bd6550b1ed041d826cb193948f7"
+          }
+        },
+        {
+          "client_id": "227382904545-kgcp4jbj1veakr4ojul7a7e5md8q796m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBAF67wQNozh1_C4UkTO5hUTUBCWYls5KM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "227382904545-kgcp4jbj1veakr4ojul7a7e5md8q796m.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "227382904545-b26f1b2ciub41s1prtv0mah65nq6jjoo.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.devhabit.RunnerTests"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:227382904545:android:b93b67eaec7bcfdf5219a0",
+        "android_client_info": {
+          "package_name": "com.opxica.devhabit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "227382904545-kgcp4jbj1veakr4ojul7a7e5md8q796m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBAF67wQNozh1_C4UkTO5hUTUBCWYls5KM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "227382904545-kgcp4jbj1veakr4ojul7a7e5md8q796m.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "227382904545-b26f1b2ciub41s1prtv0mah65nq6jjoo.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.devhabit.RunnerTests"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
