@@ -91,84 +91,100 @@ class _IntroPage3State extends State<IntroPage3> {
                     text: 'Begin your journey!',
                     press: () {
                       _btnAnimationController.isActive = true;
-                      // show auth dialog
-                      showGeneralDialog(
-                        barrierDismissible: true,
-                        barrierLabel: "Signin",
-                        context: context,
-                        pageBuilder: (
-                          context,
-                          _,
-                          __,
-                        ) =>
-                            Container(
-                          alignment: Alignment.center,
-                          padding: EdgeInsets.all(
-                            getScreenWidth(context) * 0.05,
-                          ),
-                          margin: EdgeInsets.symmetric(
-                            horizontal: getScreenWidth(context) * 0.05,
-                            vertical: getScreenheight(context) * 0.25,
-                          ),
-                          decoration: const BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(
-                                25,
+
+                      Future.delayed(const Duration(milliseconds: 800), () {
+// show auth dialog
+                        showGeneralDialog(
+                          barrierDismissible: true,
+                          barrierLabel: "Signin",
+                          context: context,
+                          transitionBuilder:
+                              (context, animation, secondaryAnimation, child) {
+                            Tween<Offset> tween;
+                            tween =
+                                Tween(begin: const Offset(0, 1), end: Offset.zero);
+                            return SlideTransition(
+                              position: tween.animate(
+                                CurvedAnimation(
+                                    parent: animation, curve: Curves.easeInOut),
+                              ),
+                              child: child,
+                            );
+                          },
+                          pageBuilder: (
+                            context,
+                            _,
+                            __,
+                          ) =>
+                              Container(
+                            alignment: Alignment.center,
+                            padding: EdgeInsets.all(
+                              getScreenWidth(context) * 0.05,
+                            ),
+                            margin: EdgeInsets.symmetric(
+                              horizontal: getScreenWidth(context) * 0.05,
+                              vertical: getScreenheight(context) * 0.25,
+                            ),
+                            decoration: const BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(
+                                  25,
+                                ),
+                              ),
+                            ),
+                            child: Scaffold(
+                              backgroundColor: Colors.transparent,
+                              body: Stack(
+                                children: [
+                                  Column(
+                                    children: [
+                                      Container(
+                                        alignment: Alignment.center,
+                                        child: const Text(
+                                          'Sign in',
+                                          style: TextStyle(
+                                            fontFamily: "Poppins",
+                                            fontSize: 34,
+                                          ),
+                                        ),
+                                      ),
+                                      const Spacer(),
+                                      Container(
+                                        padding: EdgeInsets.all(
+                                          getScreenWidth(context) * 0.05,
+                                        ),
+                                        alignment: Alignment.center,
+                                        child: const Text(
+                                          'Kickstart your journey today with devhabit, your one stop solution to learn code',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                          ),
+                                        ),
+                                      ),
+                                      const Spacer(),
+                                      AnimatedButton(
+                                        btnAnimationController:
+                                            _authBtnAnimationController,
+                                        press: () {
+                                          _authBtnAnimationController.isActive =
+                                              true;
+                                          OnboardingHandler.completeOnboarding(
+                                              context);
+                                          AuthService()
+                                              .continueWithGoogle(context);
+                                        },
+                                        text: 'Continue with google!',
+                                      )
+                                    ],
+                                  ),
+                                ],
                               ),
                             ),
                           ),
-                          child: Scaffold(
-                            backgroundColor: Colors.transparent,
-                            body: Stack(
-                              children: [
-                                Column(
-                                  children: [
-                                    Container(
-                                      alignment: Alignment.center,
-                                      child: const Text(
-                                        'Sign in',
-                                        style: TextStyle(
-                                          fontFamily: "Poppins",
-                                          fontSize: 34,
-                                        ),
-                                      ),
-                                    ),
-                                    const Spacer(),
-                                    Container(
-                                      padding: EdgeInsets.all(
-                                        getScreenWidth(context) * 0.05,
-                                      ),
-                                      alignment: Alignment.center,
-                                      child: const Text(
-                                        'Kickstart your journey today with devhabit, your one stop solution to learn code',
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                        ),
-                                      ),
-                                    ),
-                                    const Spacer(),
-                                    AnimatedButton(
-                                      btnAnimationController:
-                                          _authBtnAnimationController,
-                                      press: () {
-                                        _authBtnAnimationController.isActive =
-                                            true;
-                                        OnboardingHandler.completeOnboarding(
-                                            context);
-                                        AuthService()
-                                            .continueWithGoogle(context);
-                                      },
-                                      text: 'Continue with google!',
-                                    )
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      );
+                        );
+                      });
                     },
                   ),
                 ),
