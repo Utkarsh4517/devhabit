@@ -1,9 +1,9 @@
-import 'package:devhabit/features/auth/ui/auth_screen.dart';
 import 'package:devhabit/features/onBoarding/ui/intro_page2.dart';
 import 'package:devhabit/features/onBoarding/ui/intro_page3.dart';
 import 'package:devhabit/features/onBoarding/ui/intro_page1.dart';
+import 'package:devhabit/features/onBoarding/widgets/animated_button.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:rive/rive.dart';
 
 class OnBoardingScreen extends StatefulWidget {
   const OnBoardingScreen({super.key});
@@ -14,17 +14,16 @@ class OnBoardingScreen extends StatefulWidget {
 
 class _OnBoardingScreenState extends State<OnBoardingScreen> {
   final PageController _controller = PageController();
-
+  late RiveAnimationController _btnAnimationController;
   bool onLastPage = false;
 
-  void _completeOnboarding() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setBool('hasSeenOnboarding', true);
-    // ignore: use_build_context_synchronously
-    Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-            builder: (context) => const AuthScreen())); // PageViewHome()
+  @override
+  void initState() {
+    _btnAnimationController = OneShotAnimation(
+      "active",
+      autoplay: false,
+    );
+    super.initState();
   }
 
   @override
@@ -33,6 +32,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
       body: Stack(
         children: [
           PageView(
+            physics: const NeverScrollableScrollPhysics(),
             onPageChanged: (index) {
               setState(() {
                 onLastPage = (index == 2);
@@ -50,26 +50,21 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                if (onLastPage)
+                if (!onLastPage)
                   Container(
                     alignment: Alignment.centerRight,
-                    child: TextButton(
-                      onPressed: _completeOnboarding,
-                      child: const SizedBox(
-                        width: 216,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Text(
-                              'Done',
-                            ),
-                            Icon(
-                              Icons.arrow_right,
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
+                    margin: const EdgeInsets.symmetric(horizontal: 20),
+                    child: AnimatedButton(
+                        btnAnimationController: _btnAnimationController,
+                        press: () {
+                          _btnAnimationController.isActive = true;
+                          // await Future.delayed(const Duration(milliseconds: 100));
+                          _controller.nextPage(
+                            duration: const Duration(milliseconds: 1000),
+                            curve: Curves.easeInToLinear,
+                          );
+                        },
+                        text: 'Next'),
                   ),
               ],
             ),
@@ -79,5 +74,3 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     );
   }
 }
-
-
