@@ -1,6 +1,7 @@
 import 'package:devhabit/constants/colors.dart';
 import 'package:devhabit/constants/dimensions.dart';
 import 'package:devhabit/features/home/widgets/primary_popular_card.dart';
+import 'package:devhabit/features/home/widgets/roadmap_creator_dialog.dart';
 import 'package:devhabit/features/onBoarding/widgets/animated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
@@ -132,7 +133,10 @@ class _HomeScreenState extends State<HomeScreen> {
         press: () {
           _btnAnimationController.isActive = true;
           Future.delayed(const Duration(milliseconds: 600), () {
-            _showRoadmapCreatorDialog();
+            RoadmapCreatorDialog.showRoadmapCreatorDialog(
+              context: context,
+              controller: _generateRoadmapButtonController,
+            );
           });
         },
         text: 'Create a roadmap!',
@@ -142,70 +146,4 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   // show general dialog
-  void _showRoadmapCreatorDialog() {
-    showGeneralDialog(
-      barrierDismissible: true,
-      barrierLabel: "Signin",
-      context: context,
-      transitionBuilder: (context, animation, secondaryAnimation, child) {
-        Tween<Offset> tween;
-        tween = Tween(begin: const Offset(0, 1), end: Offset.zero);
-        return SlideTransition(
-          position: tween.animate(
-            CurvedAnimation(parent: animation, curve: Curves.easeIn),
-          ),
-          child: child,
-        );
-      },
-      pageBuilder: (
-        context,
-        _,
-        __,
-      ) =>
-          Container(
-        alignment: Alignment.center,
-        padding: EdgeInsets.all(
-          getScreenWidth(context) * 0.05,
-        ),
-        margin: EdgeInsets.symmetric(
-          horizontal: getScreenWidth(context) * 0.005,
-        ).copyWith(
-          top: getScreenheight(context) * 0.25,
-        ),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: const BorderRadius.all(
-            Radius.circular(
-              25,
-            ),
-          ).copyWith(
-            bottomLeft: Radius.zero,
-            bottomRight: Radius.zero,
-          ),
-        ),
-        child: Scaffold(
-          backgroundColor: Colors.transparent,
-          body: Stack(
-            children: [
-              Column(
-                children: [
-                  const Spacer(),
-                  Container(
-                    alignment: Alignment.center,
-                    child: AnimatedButton(
-                      btnAnimationController: _generateRoadmapButtonController,
-                      press: () {
-                        _generateRoadmapButtonController.isActive = true;
-                      },
-                      text: 'Generate',
-                    ),
-                  )
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
 }
