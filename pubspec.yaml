@@ -47,6 +47,7 @@ dependencies:
   http: ^1.1.2
   rive: ^0.12.4
   flutter_svg: ^2.0.9
+  feather_icons: ^1.2.0
 
 dev_dependencies:
   flutter_test:
