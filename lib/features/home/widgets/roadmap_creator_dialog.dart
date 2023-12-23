@@ -1,4 +1,5 @@
 import 'package:devhabit/constants/dimensions.dart';
+import 'package:devhabit/features/home/repo/home_repo.dart';
 import 'package:devhabit/features/onBoarding/widgets/animated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
@@ -254,8 +255,13 @@ class RoadmapCreatorDialog {
                         alignment: Alignment.center,
                         child: AnimatedButton(
                           btnAnimationController: genrBtnCntrl,
-                          press: () {
+                          press: () async {
                             genrBtnCntrl.isActive = true;
+                            dynamic output = await HomeRepo.generateRoadmap(
+                              domain: _domainController.text,
+                              days: _daysController.text,
+                              experience: _experience,
+                            );
                           },
                           text: 'Generate',
                         ),
