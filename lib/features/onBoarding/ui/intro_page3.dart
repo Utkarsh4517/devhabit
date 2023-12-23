@@ -21,6 +21,7 @@ class _IntroPage3State extends State<IntroPage3> {
 
   @override
   void initState() {
+
     _btnAnimationController = OneShotAnimation(
       "active",
       autoplay: false,

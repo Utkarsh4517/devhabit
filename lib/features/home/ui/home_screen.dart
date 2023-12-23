@@ -16,6 +16,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   late RiveAnimationController _btnAnimationController;
   late RiveAnimationController _generateRoadmapButtonController;
+  late RiveAnimationController _gnrBtnCntrl;
   @override
   void initState() {
     _btnAnimationController = OneShotAnimation(
@@ -25,6 +26,10 @@ class _HomeScreenState extends State<HomeScreen> {
     _generateRoadmapButtonController = OneShotAnimation(
       "active",
       autoplay: false,
+    );
+    _gnrBtnCntrl = OneShotAnimation(
+      "active",
+      autoplay: true,
     );
     super.initState();
   }
@@ -134,9 +139,9 @@ class _HomeScreenState extends State<HomeScreen> {
           _btnAnimationController.isActive = true;
           Future.delayed(const Duration(milliseconds: 600), () {
             RoadmapCreatorDialog.showRoadmapCreatorDialog(
-              context: context,
-              controller: _generateRoadmapButtonController,
-            );
+                context: context,
+                controller: _generateRoadmapButtonController,
+                genrBtnCntrl: _gnrBtnCntrl);
           });
         },
         text: 'Create a roadmap!',
