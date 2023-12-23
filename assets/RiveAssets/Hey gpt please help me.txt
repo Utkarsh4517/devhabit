@@ -1,0 +1,45 @@
+Hey gpt please help me into this.
+
+suppose this is a string in dart
+
+"**Day 1 = Django Basics**\n- Task 1: Install Django and set up a development environment.\n- Task 2: Create a new Django project and understand its structure.\n- Task 3: Explore the Django admin interface.\n\n**Day 2 = Models and Databases**\n- Task 1: Create Django models to represent data.\n- Task 2: Understand Django's ORM (Object-Relational Mapping).\n- Task 3: Perform basic CRUD (Create, Read, Update, Delete) operations on models.\n\n**Day 3 = Views and Templates**\n- Task 1: Create Django views to handle user requests.\n- Task 2: Use Django templates to render HTML responses.\n- Task 3: Pass data from views to templates using context variables.\n\n**Day 4 = Forms and User Authentication**\n- Task 1: Create Django forms for user input.\n- Task 2: Implement user authentication and authorization using Django's built-in features.\n- Task 3: Handle user registration and login/logout functionality.\n\n**Day 5 = Deployment and Advanced Topics**\n- Task 1: Deploy a Django project to a production server.\n- Task 2: Explore advanced Django features like middleware, signals, and generic views.\n- Task 3: Learn about Django's REST framework for building APIs."
+
+
+Write a function in dart 
+
+to extract the following data from the string,
+String 'day'; example =  "Day 1", "Day 2", "Day 3", "Day 4", "Day 5"
+dynamic 'dayNo'; example = 1, 2, 3, 4, 5
+String 'description'; example = "Django Basics", "Models and Databases", "Views and Templates", "Forms and User Authentication", "Deployment and Advanced Topics"
+String 'task1'; example = "Install Django and set up a development environment", "Create Django models to represent data", "Create Django views to handle user requests", "Create Django forms for user input", "Deploy a Django project to a production server"
+similarly task2 and task3
+
+
+Day: 1
+Topic: Getting Started with Flutter
+Task 1: Install Flutter SDK and set up the development environment.
+Task 2: Create a new Flutter project and explore the project structure.
+Task 3: Run your first Flutter app and understand the basic widgets.
+
+Day: 2 
+Topic: Building User Interfaces
+Task 1: Learn about different types of widgets and their properties.
+Task 2: Create a simple user interface using widgets like Text, Button, and Image.
+Task 3: Style your app using colors, fonts, and themes.
+
+
+
+**Day 2 = Building User Interfaces**
+- Task 1: Learn about different types of widgets and their properties.
+- Task 2: Create a simple user interface using widgets like Text, Button, and Image.
+- Task 3: Style your app using colors, fonts, and themes.
+
+**Day 3 = Adding Interactivity**
+- Task 1: Understand the concept of state management in Flutter.
+- Task 2: Use the setState() method to update the state of your app.
+- Task 3: Add interactivity to your app using gestures and event handling.
+
+**Day 4 = Working with Data**
+- Task 1: Learn about different ways to store and manage data in Flutter.
+- Task 2: Use the Provider package for state management and data sharing.
+- Task 3: Implement a simple CRUD (Create, Read, Update, Delete) operation using a local database.

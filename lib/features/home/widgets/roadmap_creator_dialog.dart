@@ -262,6 +262,8 @@ class RoadmapCreatorDialog {
                               days: _daysController.text,
                               experience: _experience,
                             );
+
+                            HomeRepo.extractInformation(output);
                           },
                           text: 'Generate',
                         ),
