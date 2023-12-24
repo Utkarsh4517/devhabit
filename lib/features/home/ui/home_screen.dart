@@ -56,29 +56,43 @@ class _HomeScreenState extends State<HomeScreen> {
       builder: (context, state) {
         switch (state.runtimeType) {
           case RoadmapLoadingState:
-            return RoadmapLoadingHomeUI(
-              btnAnimationController: _btnAnimationController,
-              generateRoadmapButtonController: _generateRoadmapButtonController,
-              gnrBtnCntrl: _gnrBtnCntrl,
+            return AnimatedSwitcher(
+              duration: const Duration(milliseconds: 500),
+              child: RoadmapLoadingHomeUI(
+                btnAnimationController: _btnAnimationController,
+                generateRoadmapButtonController:
+                    _generateRoadmapButtonController,
+                gnrBtnCntrl: _gnrBtnCntrl,
+              ),
             );
           case RoadmapExistState:
-            return RoadmapExistHomeUI(
-              homeBloc: _homeBloc,
-              btnAnimationController: _btnAnimationController,
-              generateRoadmapButtonController: _btnAnimationController,
-              gnrBtnCntrl: _gnrBtnCntrl,
+            return AnimatedSwitcher(
+              duration: const Duration(milliseconds: 500),
+              child: RoadmapExistHomeUI(
+                homeBloc: _homeBloc,
+                btnAnimationController: _btnAnimationController,
+                generateRoadmapButtonController: _btnAnimationController,
+                gnrBtnCntrl: _gnrBtnCntrl,
+              ),
             );
           case RoadmapDoesNotExistState:
-            return RoadmapDoesNotExistHomeUI(
-              homeBloc: _homeBloc,
-              btnAnimationController: _btnAnimationController,
-              generateRoadmapButtonController: _generateRoadmapButtonController,
-              gnrBtnCntrl: _gnrBtnCntrl,
+            return AnimatedSwitcher(
+              duration: const Duration(milliseconds: 500),
+              child: RoadmapDoesNotExistHomeUI(
+                homeBloc: _homeBloc,
+                btnAnimationController: _btnAnimationController,
+                generateRoadmapButtonController:
+                    _generateRoadmapButtonController,
+                gnrBtnCntrl: _gnrBtnCntrl,
+              ),
             );
           case RoadmapCreatedState:
-            return const Scaffold(
-              body: Center(
-                child: Text('ROadmap created'),
+            return const AnimatedSwitcher(
+              duration: Duration(milliseconds: 500),
+              child: Scaffold(
+                body: Center(
+                  child: Text('ROadmap created'),
+                ),
               ),
             );
           default:
