@@ -1,16 +1,10 @@
 import 'package:animated_snack_bar/animated_snack_bar.dart';
-import 'package:devhabit/constants/colors.dart';
-import 'package:devhabit/constants/dimensions.dart';
 import 'package:devhabit/features/home/bloc/home_bloc.dart';
 import 'package:devhabit/features/home/ui/roadmap_does_not_exist_ui.dart';
 import 'package:devhabit/features/home/ui/roadmap_exist_ui.dart';
 import 'package:devhabit/features/home/ui/roadmap_loading_ui.dart';
-import 'package:devhabit/features/home/widgets/primary_popular_card.dart';
-import 'package:devhabit/features/home/widgets/roadmap_creator_dialog.dart';
-import 'package:devhabit/features/onBoarding/widgets/animated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:rive/rive.dart';
 
 class HomeScreen extends StatefulWidget {
