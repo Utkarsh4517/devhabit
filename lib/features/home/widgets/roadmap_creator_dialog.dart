@@ -270,8 +270,8 @@ class RoadmapCreatorDialog {
                             final roadmaps =
                                 HomeRepo.extractInformation(output);
                             await HomeFirebaseServices.addRoadmapsToFirebase(
-                                roadmaps);
-
+                              roadmaps,
+                            );
                             AnimatedSnackBar.material(
                               '${_daysController.text} days roadmap created for ${_domainController.text}',
                               type: AnimatedSnackBarType.success,

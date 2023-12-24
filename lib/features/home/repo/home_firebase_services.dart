@@ -16,4 +16,15 @@ class HomeFirebaseServices {
           );
     }
   }
+
+  // fetch roadmaps from firebase
+
+  static Stream<QuerySnapshot> get roadmapsStream {
+    return FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.email)
+        .collection('roadmaps')
+        .orderBy('dayNum', descending: false)
+        .snapshots();
+  }
 }
