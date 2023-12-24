@@ -72,7 +72,7 @@ class HomeRepo {
       String task3 = taskMatch.group(3)!;
       roadmaps.add(
         RoadmapModel(
-          dayNo: dayNo,
+          dayNo: double.parse(dayNo),
           day: 'Day $dayNo',
           description: description,
           task1: task1,

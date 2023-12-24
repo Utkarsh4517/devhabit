@@ -48,6 +48,8 @@ dependencies:
   rive: ^0.12.4
   flutter_svg: ^2.0.9
   feather_icons: ^1.2.0
+  cloud_firestore: ^4.13.6
+  animated_snack_bar: ^0.4.0
 
 dev_dependencies:
   flutter_test:

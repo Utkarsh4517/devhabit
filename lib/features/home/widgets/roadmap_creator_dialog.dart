@@ -1,5 +1,9 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:devhabit/constants/dimensions.dart';
 import 'package:devhabit/features/home/repo/gemini_services.dart';
+import 'package:devhabit/features/home/repo/home_firebase_services.dart';
 import 'package:devhabit/features/onBoarding/widgets/animated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
@@ -263,7 +267,16 @@ class RoadmapCreatorDialog {
                               experience: _experience,
                             );
 
-                            HomeRepo.extractInformation(output);
+                            final roadmaps =
+                                HomeRepo.extractInformation(output);
+                            await HomeFirebaseServices.addRoadmapsToFirebase(
+                                roadmaps);
+
+                            AnimatedSnackBar.material(
+                              '${_daysController.text} days roadmap created for ${_domainController.text}',
+                              type: AnimatedSnackBarType.success,
+                            ).show(context);
+                            Navigator.pop(context);
                           },
                           text: 'Generate',
                         ),

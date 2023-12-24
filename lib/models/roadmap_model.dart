@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 class RoadmapModel {
-  final dynamic dayNo;
+  final double dayNo;
   final String day;
   final String description;
   final String task1;
@@ -38,7 +38,7 @@ class RoadmapModel {
 
   factory RoadmapModel.fromMap(Map<String, dynamic> map) {
     return RoadmapModel(
-      dayNo: map['dayNo'],
+      dayNo: map['dayNo'] as double,
       day: map['day'] ?? '',
       description: map['description'] ?? '',
       task1: map['task1'] ?? '',
