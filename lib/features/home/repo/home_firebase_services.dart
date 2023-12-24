@@ -17,8 +17,40 @@ class HomeFirebaseServices {
     }
   }
 
-  // fetch roadmaps from firebase
+  // check if roadmap is created or not??
+  static Future<bool> checkRoadmap() async {
+    DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.email)
+        .get();
+    if (documentSnapshot.exists) {
+      return documentSnapshot['roadmap'];
+    } else {
+      return false;
+    }
+  }
 
+  // update isRoadmapCreated
+  static Future<void> updateIsRoadmap() async {
+    DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.email)
+        .get();
+    final docRef = FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.email);
+    if (documentSnapshot.exists) {
+      docRef.update({
+        'roadmap': true,
+      });
+    } else {
+      docRef.set({
+        'roadmap': true,
+      });
+    }
+  }
+
+  // fetch roadmaps from firebase
   static Stream<QuerySnapshot> get roadmapsStream {
     return FirebaseFirestore.instance
         .collection('users')
@@ -26,5 +58,28 @@ class HomeFirebaseServices {
         .collection('roadmaps')
         .orderBy('dayNum', descending: false)
         .snapshots();
+  }
+
+  // method to find the number of docs -> to get the roadmap length
+  static Future<dynamic> getRoadmapLength() async {
+    QuerySnapshot<Map<String, dynamic>> querySnapshot = await FirebaseFirestore
+        .instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.email)
+        .collection('roadmaps')
+        .get();
+    return querySnapshot.docs.length;
+  }
+
+  // delete roadmaps
+  static Future<void> deleteRoadmap() async {
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.email)
+        .collection('roadmaps')
+        .get();
+    for (var documentSnapshot in querySnapshot.docs) {
+      await documentSnapshot.reference.delete();
+    }
   }
 }

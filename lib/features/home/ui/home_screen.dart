@@ -1,9 +1,16 @@
+import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:devhabit/constants/colors.dart';
 import 'package:devhabit/constants/dimensions.dart';
+import 'package:devhabit/features/home/bloc/home_bloc.dart';
+import 'package:devhabit/features/home/ui/roadmap_does_not_exist_ui.dart';
+import 'package:devhabit/features/home/ui/roadmap_exist_ui.dart';
+import 'package:devhabit/features/home/ui/roadmap_loading_ui.dart';
 import 'package:devhabit/features/home/widgets/primary_popular_card.dart';
 import 'package:devhabit/features/home/widgets/roadmap_creator_dialog.dart';
 import 'package:devhabit/features/onBoarding/widgets/animated_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:rive/rive.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -17,6 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
   late RiveAnimationController _btnAnimationController;
   late RiveAnimationController _generateRoadmapButtonController;
   late RiveAnimationController _gnrBtnCntrl;
+
   @override
   void initState() {
     _btnAnimationController = OneShotAnimation(
@@ -31,122 +39,58 @@ class _HomeScreenState extends State<HomeScreen> {
       "active",
       autoplay: true,
     );
+    _homeBloc.add(HomeInitialEvent());
     super.initState();
   }
 
+  final _homeBloc = HomeBloc();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 100,
-        backgroundColor: bgColor,
-        elevation: 0,
-        leading: Container(
-          margin:
-              EdgeInsets.symmetric(horizontal: getScreenWidth(context) * 0.015),
-          width: 10,
-          height: 10,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            shape: BoxShape.circle,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
-                spreadRadius: 2,
-                blurRadius: 5,
-                offset: const Offset(0, 5),
+    return BlocConsumer<HomeBloc, HomeState>(
+      bloc: _homeBloc,
+      listenWhen: (previous, current) => current is HomeActionState,
+      buildWhen: (previous, current) => current is! HomeActionState,
+      listener: (context, state) {
+        if (state is RoadmapCreatedActionState) {
+          AnimatedSnackBar.material(
+            '${state.days} days roadmap created for ${state.domain}',
+            type: AnimatedSnackBarType.success,
+          ).show(context);
+          Navigator.pop(context);
+        }
+      },
+      builder: (context, state) {
+        switch (state.runtimeType) {
+          case RoadmapLoadingState:
+            return RoadmapLoadingHomeUI(
+              btnAnimationController: _btnAnimationController,
+              generateRoadmapButtonController: _generateRoadmapButtonController,
+              gnrBtnCntrl: _gnrBtnCntrl,
+            );
+          case RoadmapExistState:
+            return RoadmapExistHomeUI(
+              homeBloc: _homeBloc,
+              btnAnimationController: _btnAnimationController,
+              generateRoadmapButtonController: _btnAnimationController,
+              gnrBtnCntrl: _gnrBtnCntrl,
+            );
+          case RoadmapDoesNotExistState:
+            return RoadmapDoesNotExistHomeUI(
+              homeBloc: _homeBloc,
+              btnAnimationController: _btnAnimationController,
+              generateRoadmapButtonController: _generateRoadmapButtonController,
+              gnrBtnCntrl: _gnrBtnCntrl,
+            );
+          case RoadmapCreatedState:
+            return const Scaffold(
+              body: Center(
+                child: Text('ROadmap created'),
               ),
-            ],
-          ),
-          child: const Icon(Icons.menu),
-        ),
-      ),
-      backgroundColor: bgColor,
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // popular text
-              Container(
-                margin: EdgeInsets.symmetric(
-                    horizontal: getScreenWidth(context) * 0.05),
-                child: Text(
-                  'Popular',
-                  style: TextStyle(
-                    fontFamily: 'Poppins',
-                    fontSize: getScreenWidth(context) * 0.085,
-                  ),
-                ),
-              ),
-
-              // cards
-              SizedBox(
-                height: getScreenheight(context) * 0.4,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: const [
-                    PrimaryPopularCard(
-                      domainName: 'Django',
-                      numOfDays: '60',
-                      tagLine:
-                          "Master Django web development in just 60 days - from zero to deploying dynamic websites and web apps with Python's powerful framework",
-                    ),
-                    PrimaryPopularCard(
-                      domainName: 'Django',
-                      numOfDays: '60',
-                      tagLine:
-                          "Master Django web development in just 60 days - from zero to deploying dynamic websites and web apps with Python's powerful framework",
-                    ),
-                    PrimaryPopularCard(
-                      domainName: 'Django',
-                      numOfDays: '60',
-                      tagLine:
-                          "Master Django web development in just 60 days - from zero to deploying dynamic websites and web apps with Python's powerful framework",
-                    ),
-                  ],
-                ),
-              ),
-
-              Container(
-                margin: EdgeInsets.symmetric(
-                    horizontal: getScreenWidth(context) * 0.05,
-                    vertical: getScreenWidth(context) * 0.03),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Recommended',
-                      style: TextStyle(
-                        fontFamily: 'Poppins',
-                        fontSize: getScreenWidth(context) * 0.055,
-                      ),
-                    ),
-                    const Text(
-                      'Based on your activity',
-                      style: TextStyle(fontWeight: FontWeight.w200),
-                    )
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-      floatingActionButton: AnimatedButton(
-        btnAnimationController: _btnAnimationController,
-        press: () {
-          _btnAnimationController.isActive = true;
-          Future.delayed(const Duration(milliseconds: 600), () {
-            RoadmapCreatorDialog.showRoadmapCreatorDialog(
-                context: context,
-                controller: _generateRoadmapButtonController,
-                genrBtnCntrl: _gnrBtnCntrl);
-          });
-        },
-        text: 'Create a roadmap!',
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+            );
+          default:
+            return const Scaffold();
+        }
+      },
     );
   }
 

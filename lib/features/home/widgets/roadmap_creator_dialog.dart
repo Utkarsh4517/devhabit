@@ -1,7 +1,8 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, no_leading_underscores_for_local_identifiers
 
 import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:devhabit/constants/dimensions.dart';
+import 'package:devhabit/features/home/bloc/home_bloc.dart';
 import 'package:devhabit/features/home/repo/gemini_services.dart';
 import 'package:devhabit/features/home/repo/home_firebase_services.dart';
 import 'package:devhabit/features/onBoarding/widgets/animated_button.dart';
@@ -12,7 +13,9 @@ class RoadmapCreatorDialog {
   static void showRoadmapCreatorDialog(
       {required BuildContext context,
       required RiveAnimationController controller,
-      required RiveAnimationController genrBtnCntrl}) {
+      required RiveAnimationController genrBtnCntrl, 
+      required HomeBloc homeBloc,
+      }) {
     int _currentIndex = 1;
     String _experience = 'Beginner';
     final _domainController = TextEditingController();
@@ -261,22 +264,16 @@ class RoadmapCreatorDialog {
                           btnAnimationController: genrBtnCntrl,
                           press: () async {
                             genrBtnCntrl.isActive = true;
-                            dynamic output = await HomeRepo.generateRoadmap(
-                              domain: _domainController.text,
-                              days: _daysController.text,
-                              experience: _experience,
-                            );
-
-                            final roadmaps =
-                                HomeRepo.extractInformation(output);
-                            await HomeFirebaseServices.addRoadmapsToFirebase(
-                              roadmaps,
-                            );
-                            AnimatedSnackBar.material(
-                              '${_daysController.text} days roadmap created for ${_domainController.text}',
-                              type: AnimatedSnackBarType.success,
-                            ).show(context);
-                            Navigator.pop(context);
+                            homeBloc.add(GenerateRoadmapEvent(
+                                domain: _domainController.text,
+                                days: _daysController.text,
+                                experience: _experience));
+                           
+                            // AnimatedSnackBar.material(
+                            //   '${_daysController.text} days roadmap created for ${_domainController.text}',
+                            //   type: AnimatedSnackBarType.success,
+                            // ).show(context);
+                            // Navigator.pop(context);
                           },
                           text: 'Generate',
                         ),
