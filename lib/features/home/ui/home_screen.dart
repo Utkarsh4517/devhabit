@@ -1,4 +1,5 @@
 import 'package:animated_snack_bar/animated_snack_bar.dart';
+import 'package:devhabit/constants/colors.dart';
 import 'package:devhabit/features/home/bloc/home_bloc.dart';
 import 'package:devhabit/features/home/ui/roadmap_does_not_exist_ui.dart';
 import 'package:devhabit/features/home/ui/roadmap_exist_ui.dart';
@@ -40,67 +41,63 @@ class _HomeScreenState extends State<HomeScreen> {
   final _homeBloc = HomeBloc();
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<HomeBloc, HomeState>(
-      bloc: _homeBloc,
-      listenWhen: (previous, current) => current is HomeActionState,
-      buildWhen: (previous, current) => current is! HomeActionState,
-      listener: (context, state) {
-        if (state is RoadmapCreatedActionState) {
-          AnimatedSnackBar.material(
-            '${state.days} days roadmap created for ${state.domain}',
-            type: AnimatedSnackBarType.success,
-          ).show(context);
-          Navigator.pop(context);
-        }
-      },
-      builder: (context, state) {
-        switch (state.runtimeType) {
-          case RoadmapLoadingState:
-            return AnimatedSwitcher(
-              duration: const Duration(milliseconds: 500),
-              child: RoadmapLoadingHomeUI(
-                btnAnimationController: _btnAnimationController,
-                generateRoadmapButtonController:
-                    _generateRoadmapButtonController,
-                gnrBtnCntrl: _gnrBtnCntrl,
-              ),
-            );
-          case RoadmapExistState:
-            return AnimatedSwitcher(
-              duration: const Duration(milliseconds: 500),
-              child: RoadmapExistHomeUI(
-                homeBloc: _homeBloc,
-                btnAnimationController: _btnAnimationController,
-                generateRoadmapButtonController: _btnAnimationController,
-                gnrBtnCntrl: _gnrBtnCntrl,
-              ),
-            );
-          case RoadmapDoesNotExistState:
-            return AnimatedSwitcher(
-              duration: const Duration(milliseconds: 500),
-              child: RoadmapDoesNotExistHomeUI(
-                homeBloc: _homeBloc,
-                btnAnimationController: _btnAnimationController,
-                generateRoadmapButtonController:
-                    _generateRoadmapButtonController,
-                gnrBtnCntrl: _gnrBtnCntrl,
-              ),
-            );
-          case RoadmapCreatedState:
-            return const AnimatedSwitcher(
-              duration: Duration(milliseconds: 500),
-              child: Scaffold(
-                body: Center(
-                  child: Text('ROadmap created'),
-                ),
-              ),
-            );
-          default:
-            return const Scaffold();
-        }
-      },
+    return Material(
+      color: bgColor,
+      child: BlocConsumer<HomeBloc, HomeState>(
+        bloc: _homeBloc,
+        listenWhen: (previous, current) => current is HomeActionState,
+        buildWhen: (previous, current) => current is! HomeActionState,
+        listener: (context, state) {
+          if (state is RoadmapCreatedActionState) {
+            AnimatedSnackBar.material(
+              '${state.days} days roadmap created for ${state.domain}',
+              type: AnimatedSnackBarType.success,
+            ).show(context);
+            Navigator.pop(context);
+          }
+        },
+        builder: (context, state) {
+          return AnimatedSwitcher(
+            duration: const Duration(milliseconds: 500),
+            child: _buildStateWidget(state),
+          );
+        },
+      ),
     );
   }
 
-  // show general dialog
+  Widget _buildStateWidget(HomeState state) {
+    switch (state.runtimeType) {
+      case RoadmapLoadingState:
+        return RoadmapLoadingHomeUI(
+          btnAnimationController: _btnAnimationController,
+          generateRoadmapButtonController: _generateRoadmapButtonController,
+          gnrBtnCntrl: _gnrBtnCntrl,
+        );
+      case RoadmapExistState:
+        return RoadmapExistHomeUI(
+          homeBloc: _homeBloc,
+          btnAnimationController: _btnAnimationController,
+          generateRoadmapButtonController: _btnAnimationController,
+          gnrBtnCntrl: _gnrBtnCntrl,
+        );
+      case RoadmapDoesNotExistState:
+        return RoadmapDoesNotExistHomeUI(
+          homeBloc: _homeBloc,
+          btnAnimationController: _btnAnimationController,
+          generateRoadmapButtonController: _generateRoadmapButtonController,
+          gnrBtnCntrl: _gnrBtnCntrl,
+        );
+      case RoadmapCreatedState:
+        return const Scaffold(
+          body: Center(
+            child: Text('Roadmap created'),
+          ),
+        );
+      default:
+        return const Scaffold(
+          backgroundColor: bgColor,
+        );
+    }
+  }
 }
