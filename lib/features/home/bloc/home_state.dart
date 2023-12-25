@@ -28,3 +28,21 @@ class RoadmapCreatedState extends HomeState {
     required this.roadmaps,
   });
 }
+
+class DayTileClickedState extends HomeActionState {
+  final int index;
+  DayTileClickedState({
+    required this.index,
+  });
+}
+
+class OpenUserResponseDialogBoxState extends HomeActionState {
+  final RoadmapModel roadmapModel;
+  final String task;
+  final String taskName;
+  OpenUserResponseDialogBoxState({
+    required this.roadmapModel,
+    required this.task,
+    required this.taskName,
+  });
+}

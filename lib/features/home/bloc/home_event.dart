@@ -15,3 +15,21 @@ class GenerateRoadmapEvent extends HomeEvent {
     required this.experience,
   });
 }
+
+class DayTileClickedEvent extends HomeEvent {
+  final int index;
+  DayTileClickedEvent({
+    required this.index,
+  });
+}
+
+class CheckBoxClickedEvent extends HomeEvent {
+  final RoadmapModel roadmap;
+  final String task;
+  final String taskName;
+  CheckBoxClickedEvent({
+    required this.roadmap,
+    required this.task,
+    required this.taskName,
+  });
+}

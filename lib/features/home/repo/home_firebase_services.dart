@@ -56,7 +56,7 @@ class HomeFirebaseServices {
         .collection('users')
         .doc(FirebaseAuth.instance.currentUser!.email)
         .collection('roadmaps')
-        .orderBy('dayNum', descending: false)
+        .orderBy('dayNo', descending: false)
         .snapshots();
   }
 

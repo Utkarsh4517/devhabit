@@ -13,6 +13,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc() : super(HomeInitial()) {
     on<HomeInitialEvent>(homeInitialEvent);
     on<GenerateRoadmapEvent>(generateRoadmapEvent);
+    on<DayTileClickedEvent>(dayTileClickedEvent);
+    on<CheckBoxClickedEvent>(checkBoxClickedEvent);
   }
 
   FutureOr<void> homeInitialEvent(
@@ -42,5 +44,21 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     await HomeFirebaseServices.updateIsRoadmap();
     emit(RoadmapCreatedActionState(days: event.days, domain: event.domain));
     emit(RoadmapCreatedState(roadmaps: roadmaps));
+  }
+
+  FutureOr<void> dayTileClickedEvent(
+      DayTileClickedEvent event, Emitter<HomeState> emit) {
+    emit(DayTileClickedState(index: event.index));
+  }
+
+  FutureOr<void> checkBoxClickedEvent(
+      CheckBoxClickedEvent event, Emitter<HomeState> emit) {
+    // emit a state which opens a dialog box which can accept user response...
+    emit(OpenUserResponseDialogBoxState(
+      roadmapModel: event.roadmap,
+      task: event.task,
+      taskName: event.taskName,
+    ));
+    print('checkbox clicked for ${event.roadmap.day} ${event.task}');
   }
 }

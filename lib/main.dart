@@ -1,6 +1,5 @@
 // ignore_for_file: avoid_print
 
-import 'package:devhabit/constants/colors.dart';
 import 'package:devhabit/features/home/ui/home_screen.dart';
 import 'package:devhabit/features/onBoarding/ui/intro_page3.dart';
 import 'package:firebase_auth/firebase_auth.dart';
