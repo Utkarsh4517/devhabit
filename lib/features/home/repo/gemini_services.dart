@@ -20,7 +20,7 @@ class HomeRepo {
           "parts": [
             {
               "text":
-                  "Create a day-wise roadmap to learn $domainName in $days days for a person who is at $experience level in programming. Provide a detailed plan for each day, including tasks and topics to cover. Start with the basics and progress to more advanced concepts. Add a brief description for each day's in only one phrase. Follow this format strictly. do not use colon after day, use = sign. Day 1 = description for that day = task 1 for that day = task 2 for that day = task 3 for that day \n Day 2 = description for that day = task 1 for that day = task 2 for that day = task 3 for that day \n till Day $days = description for that day = task 1 for that day = task 2 for that day = task 3 for that day, show 3 tasks under each day, and add a titile for each day"
+                  "Create a day-wise roadmap to learn $domainName in $days days for a person who is at $experience level in programming. Provide a detailed plan for each day, including tasks and topics to cover. Start with the basics and progress to more advanced concepts. Add a brief description for each day's in only one phrase. Follow this format strictly. do not use colon after day, use = sign. Day 1 = description for that day = task 1 for that day = task 2 for that day = task 3 for that day \n Day 2 = description for that day = task 1 for that day = task 2 for that day = task 3 for that day \n till Day $days = description for that day = task 1 for that day = task 2 for that day = task 3 for that day, show 3 tasks under each day, never repeat any task, and add a titile for each day"
             }
           ]
         }

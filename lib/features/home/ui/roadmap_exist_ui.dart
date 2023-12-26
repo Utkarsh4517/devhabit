@@ -9,6 +9,7 @@ import 'package:devhabit/features/home/widgets/roadmap_list_tile.dart';
 import 'package:devhabit/features/onBoarding/widgets/animated_button.dart';
 import 'package:devhabit/models/roadmap_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rive/rive.dart';
 
@@ -37,9 +38,30 @@ class _RoadmapExistHomeUIState extends State<RoadmapExistHomeUI> {
     });
   }
 
+  ScrollController _scrollController = ScrollController();
+  bool _isFabVisible = true;
+
   @override
   void initState() {
     getRoadmapLength();
+    _scrollController.addListener(() {
+      if (_scrollController.position.userScrollDirection ==
+          ScrollDirection.forward) {
+        // User is scrolling up, show FAB
+        if (!_isFabVisible) {
+          setState(() {
+            _isFabVisible = true;
+          });
+        }
+      } else {
+        // User is scrolling down, hide FAB
+        if (_isFabVisible) {
+          setState(() {
+            _isFabVisible = false;
+          });
+        }
+      }
+    });
     super.initState();
   }
 
@@ -58,13 +80,35 @@ class _RoadmapExistHomeUIState extends State<RoadmapExistHomeUI> {
           });
         } else if (state is OpenUserResponseDialogBoxState) {
           showGeneralDialog(
-              context: context,
-              pageBuilder: (context, _, __) => StatefulBuilder(
-                      builder: (BuildContext context, StateSetter setState) {
-                    return AnimatedContainer(
-                      duration: Duration(milliseconds: 500),
-                    );
-                  }));
+            context: context,
+            pageBuilder: (context, _, __) => StatefulBuilder(
+              builder: (BuildContext context, StateSetter setState) {
+                return AnimatedContainer(
+                  duration: const Duration(milliseconds: 500),
+                  padding: EdgeInsets.all(
+                    getScreenWidth(context) * 0.05,
+                  ),
+                  margin: EdgeInsets.symmetric(
+                    horizontal: getScreenWidth(context) * 0.1,
+                    vertical: getScreenheight(context) * 0.2,
+                  ),
+                  decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.all(Radius.circular(25))),
+                  child: const Scaffold(
+                    backgroundColor: Colors.transparent,
+                    body: Stack(
+                      children: [
+                        Column(
+                          children: [],
+                        )
+                      ],
+                    ),
+                  ),
+                );
+              },
+            ),
+          );
         }
       },
       builder: (context, state) {
@@ -96,6 +140,7 @@ class _RoadmapExistHomeUIState extends State<RoadmapExistHomeUI> {
           backgroundColor: bgColor,
           body: SafeArea(
             child: SingleChildScrollView(
+              controller: _scrollController,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -255,21 +300,23 @@ class _RoadmapExistHomeUIState extends State<RoadmapExistHomeUI> {
               ),
             ),
           ),
-          floatingActionButton: AnimatedButton(
-            btnAnimationController: widget.btnAnimationController,
-            press: () {
-              widget.btnAnimationController.isActive = true;
-              Future.delayed(const Duration(milliseconds: 600), () {
-                RoadmapCreatorDialog.showRoadmapCreatorDialog(
-                  context: context,
-                  controller: widget.generateRoadmapButtonController,
-                  genrBtnCntrl: widget.gnrBtnCntrl,
-                  homeBloc: widget.homeBloc,
-                );
-              });
-            },
-            text: 'Folow a new roadmap?',
-          ),
+          floatingActionButton: _isFabVisible
+              ? AnimatedButton(
+                  btnAnimationController: widget.btnAnimationController,
+                  press: () {
+                    widget.btnAnimationController.isActive = true;
+                    Future.delayed(const Duration(milliseconds: 600), () {
+                      RoadmapCreatorDialog.showRoadmapCreatorDialog(
+                        context: context,
+                        controller: widget.generateRoadmapButtonController,
+                        genrBtnCntrl: widget.gnrBtnCntrl,
+                        homeBloc: widget.homeBloc,
+                      );
+                    });
+                  },
+                  text: 'Folow a new roadmap?',
+                )
+              : null,
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerFloat,
         );
